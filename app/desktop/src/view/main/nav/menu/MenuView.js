@@ -11,5 +11,5 @@ Ext.define('pso2affixsim.view.nav.menu.MenuView', {
 	expanderOnly: false,
 	listeners: {
 		selectionchange: 'onMenuViewSelectionChange'
-	},
+	}
 });

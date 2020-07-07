@@ -26,9 +26,11 @@
     "build:desktop": "npm run clean && cross-env webpack --env.profile=desktop --env.environment=production --env.treeshake=yes"
   },
   "dependencies": {
+    "@sencha/ext": "~7.0.0",
     "@sencha/ext-classic": "~7.0.0",
     "@sencha/ext-classic-theme-material": "~7.0.0",
-    "@sencha/ext": "~7.0.0"
+    "@sencha/ext-modern-treegrid": "^7.0.0",
+    "@sencha/ext-ux": "^7.0.0"
   },
   "devDependencies": {
     "@sencha/ext-webpack-plugin": "~7.0.0",

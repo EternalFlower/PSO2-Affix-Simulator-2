@@ -6,7 +6,8 @@
   "template": "classicdesktop",
   "indexHtmlPath": "index.html",
   "requires": [
-    "font-awesome"
+    "font-awesome",
+    "ext-ux"
   ],
 
   "builds": {
@@ -99,7 +100,7 @@
       "enable": true
     },
     "compressor": {
-      "type": "yui"
+      "type": "closure"
     }
   },
   "testing": {},

@@ -1,8 +1,10 @@
 Ext.define('pso2affixsim.Application', {
 	extend: 'Ext.app.Application',
 	name: 'pso2affixsim',
-	requires: ['pso2affixsim.*'],
-	defaultToken: 'homeview',
+	requires: [
+		'Ext.layout.container.Border',
+		'pso2affixsim.*'
+	],
 
 	launch: function () {
 		Ext.ariaWarn = Ext.emptyFn
@@ -11,8 +13,15 @@ Ext.define('pso2affixsim.Application', {
 		elem.parentNode.removeChild(elem)
 
 		var whichView = 'mainview'
-//		var loggedIn = localStorage.getItem("LoggedIn");
-//		if(loggedIn != 'true') { whichView = 'loginview' }
+		Ext.create('pso2affixsim.store.Ability', {storeId: 'abilityList'});
+		Ext.create('pso2affixsim.store.Items', {storeId: 'item'});
+        Ext.create('pso2affixsim.store.Synthesis', {storeId: 'synthesis'});
+        Ext.create('pso2affixsim.store.BoostItems', {storeId: 'boostitem'});
+		Ext.create('pso2affixsim.store.BoostPotential', {storeId: 'boostpotential'});
+		Ext.create('pso2affixsim.store.AbilityBoost', {storeId: 'abilityboost'});
+		Ext.create('pso2affixsim.store.UpslotRates', {storeId: 'upslotrates'});
+		
+
 		if (Ext.isClassic == true) {
 			Ext.create({xtype: whichView, plugins: 'viewport'})
 		}

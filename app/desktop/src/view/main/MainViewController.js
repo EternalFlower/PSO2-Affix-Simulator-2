@@ -1,76 +1,44 @@
 Ext.define('pso2affixsim.view.main.MainViewController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.mainviewcontroller',
-
-  // Simply run setCenterViewXtype, passing the record that describes the center view,
-  // and updateCenterViewXtype takes care of the rest.
-  config: {
-    centerViewXtype: null
-  },
+  requires: ['Ext.ux.Mediator'],
 
   initViewModel: function(vm) {
-    var me = this;
-
-    // menuItem can change either because the user selected an item in the NavView, or
-    // because the record is named in the URL routing information.
-    vm.bind("", me.setCenterViewXtype, me);
   },
-
-  updateCenterViewXtype: function(menuItem) {
-    if (!menuItem) return;
-    var data = menuItem.data;
-    if (!Ext.ClassManager.getByAlias("widget." + data.xtype)) {
-      console.log(xtype + " does not exist");
-      return;
-    }
-
-    var centerview = this.lookup("centerview");
-
-    // Lazily add the view to the center container.
-    var child = centerview.getComponent(data.xtype) || centerview.add({ xtype: data.xtype, itemId: data.xtype, heading: data.text });
-
-    centerview.setActiveItem(child);
-
-    this.redirectTo(data.xtype);
-
-    this.getViewModel().set("menuItem", menuItem);
-    this.getViewModel().set("heading", data.text);
+  campaignBoostChangeEvent: function(field, newValue, oldValue, opts){
+    Ext.ux.Mediator.fireEvent('campaignChange', newValue);
   },
-
-  routes: { 
-  ':xtype': {action: 'mainRoute'}
+  groupTypeBoostChangeEvent: function(field, newValue, oldValue, opts){
+    Ext.ux.Mediator.fireEvent('groupTypeChange', newValue);
   },
-
-  mainRoute:function(xtype) {
-    //var menuview = this.lookup('menuview');
-    var navview = this.lookup('navview');
-    var menuview = navview.items.items[0]
-    var centerview = this.lookup('centerview');
-    var exists = Ext.ClassManager.getByAlias('widget.' + xtype);
-    if (exists === undefined) {
-      console.log(xtype + ' does not exist');
-      return;
-    }
-    var node = menuview.getStore().findNode('xtype', xtype);
-    if (node == null) {
-      console.log('unmatchedRoute: ' + xtype);
-      return;
-    }
-    if (!centerview.getComponent(xtype)) {
-      centerview.add({ xtype: xtype,  itemId: xtype, heading: node.get('text') });
-    }
-    centerview.setActiveItem(xtype);
-    menuview.setSelection(node);
-    var vm = this.getViewModel(); 
-    vm.set('heading', node.get('text'));
+  groupvalueBoostChangeEvent: function(field, newValue, oldValue, opts){
+    Ext.ux.Mediator.fireEvent('groupValueChange', newValue);
   },
-
-  onMenuViewSelectionChange: function (tree, node) {
-    if (node == null) { return }
-    var vm = this.getViewModel();
-    if (node.get('xtype') != undefined) {
-      this.redirectTo( node.get('xtype') );
+  changeBaseColor: function ( field, color, previousColor, eOpts ) {
+    if(previousColor != null){
+      Fashion.css.setVariables(
+        {
+          "base-color": '#' + color,
+          "dark-mode": this.getViewModel().get('dark_mode').toString()
+        }
+      );
     }
+  },
+  changeDarkMode: function (checkbox, newValue, oldValue, eOpts){
+    this.getViewModel().set('dark_mode', newValue);
+    Fashion.css.setVariables(
+      {
+        "base-color": '#' + this.getViewModel().get('color'),
+        "dark-mode": newValue.toString()
+      });
+  },
+  onAddTabClick: function() {
+    var tabPanel = this.lookupReference('tabpanel'),
+        tab = tabPanel.add({
+          xtype: "tabview"
+        });
+
+    //tabPanel.setActiveTab(tab);
   },
 
   onHeaderViewNavToggle: function () {
@@ -117,5 +85,4 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
       }
     })
   }
-
 });

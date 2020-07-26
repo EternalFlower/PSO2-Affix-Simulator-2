@@ -15,6 +15,14 @@ Ext.define('pso2affixsim.view.main.MainViewModel', {
 		color: '025B80',
 		dark_mode: false
 	},
+	constructor: function (){
+		this.callParent(arguments);
+		var local = Ext.util.LocalStorage.get('affixsim');
+		this.setData({
+			'color': local.getItem("base-color"),
+			'dark_mode': local.getItem("dark-mode")
+		})
+	},
 	formulas: {
 		navview_width: function(get) {
 			return get('navCollapsed') ? get('navview_min_width') : get('navview_max_width');

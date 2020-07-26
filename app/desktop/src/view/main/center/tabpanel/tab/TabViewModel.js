@@ -63,7 +63,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     },
     constructor: function(){
         this.callParent(arguments);
-        this.item = Ext.getStore('item');
 
         for(var i = 0; i < this.const_MaxFodder; i++){
             this.createPanelStore();
@@ -126,6 +125,28 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 store.getAt(entry + 1).set("slot", null);
             }
         }
+        this.updateSelectionList();
+    },
+    makeFactor:function(tableIndex, index, isFactor){
+        var store = this.get('panels')[tableIndex];
+        var data = store.getAt(index).get("slot")
+
+        var node;
+        if (isFactor == true) {
+            node = Ext.applyIf({
+                source: data,
+                factor: true,
+                rate: [100],
+                generate: null
+            }, data);
+            node.code = "*" + data.code
+        } else {
+            node = data.source;
+            delete data
+        }
+
+        store.getAt(index).set("slot", node)
+
         this.updateSelectionList();
     },
     swapAbility: function(fodder, indexDrag, indexDrop){
@@ -285,59 +306,74 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         synthesisList.each(function(record){
             var recipe = record.get("recipe");
             var created = true;
-            var capture = [];
-            for(var item in recipe){
-                if(recipe[item] == "*"){
-                    /*var codeList = Array.from(abilityMap.keys())
-                    var result = codeList.filter(function(element){
-                        return element.substring(0, item.length) == item
-                    })*/
-                } else if (Number.isInteger(recipe[item])){
-                    if(abilityMap.get(item) == undefined || recipe[item] > abilityMap.get(item).count){
+            var abilityMapCopy = new Map(abilityMap)
+            var result;
+            for(var i = 0; i < recipe.length; i++){
+                var item = recipe[i];
+                if(item[item.length - 1] == '*'){
+                    var codeList = Array.from(abilityMap.keys())
+                    result = codeList.filter(function(element){
+                        return element.substring(0, item.length - 1) == item.substring(0, item.length - 1)
+                    })
+                } else {
+                    if(abilityMapCopy.get(item) == undefined || recipe[item] > abilityMapCopy.get(item).count){
                         created = false;
                         break;
                     }
                 }
             }
             if(created){
-                if(record.get("result") != '*'){
-                    var synthesis = abilityList.findNode("code", record.get("result"))
-                    selectionStore.add({
-                        data: synthesis.data,
-                        rate: record.get("success"),
-                        disable: false,
-                        selected: false
-                    });
-                } /*else if(capture.length){
-                    for(var i = 0; i < capture.length; i++){
+                var results = record.get("result");
+                for(var i = 0; i < results.length; i++){
+                    if(results[i] == "$$"){
+                        for(var j = 0; j < result.length; j++){
+                            var synthesis = abilityList.findNode("code", result[j])
+                            selectionStore.add({
+                                data: synthesis.data,
+                                rate: record.get("success"),
+                                disable: false,
+                                selected: false
+                            });
+                        }
+                    } else {
+                        var synthesis = abilityList.findNode("code", results[i])
                         selectionStore.add({
                             data: synthesis.data,
                             rate: record.get("success"),
                             disable: false,
                             selected: false
                         });
-                    } 
-                } */
+                    }
+                }
             }
         });
         
         this.updateViewSelectionList();
     },
-    updateSelectedOptions: function(){
+    updateSelectedOptions: function(newSelect, isNewSelect){
        
         var result = this.getStore("result");
         var selectionList = this.getStore("selection");
         result.removeAll();
         selectionList.each(function(record){
             if(record.get("selected")){
-                result.add({
-                    name: record.get("data").name, 
-                    baserate: record.get("rate"), 
-                    rate: record.get("rate"), 
-                    gid: record.get("data").gid
-                });
+                var data = record.get('data')
+                if(isNewSelect && newSelect.code != data.code && newSelect.gid == data.gid) {
+                    record.set("selected", false);
+                    
+                } else {
+                    result.add({
+                        name: data.name, 
+                        baserate: record.get("rate"), 
+                        rate: record.get("rate"), 
+                        stats: data.stats,
+                        gid: data.gid
+                    });
+                }
+                
             }
         })
+        selectionList.fireEvent("SetValue", selectionList)
         this.maximumAbilitySelectedCheck();
         this.updateRates();
     },
@@ -350,7 +386,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
         var itemExists = this.getStore("result").findRecord("gid", "item");
         this.set("itemEnabled", !itemExists && maxed)
-        this.getStore("selection").fireEvent("DisabledChanged", this.getStore("selection"))
+        this.getStore("selection").fireEvent("DisabledCheckbox", this.getStore("selection"))
     },
     changeItemSelected: function(record){
         var removed = this.getStore("result").findRecord("gid", "item");
@@ -364,6 +400,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 name: record.get("name"), 
                 baserate: record.get("rate"), 
                 rate: record.get("rate"), 
+                stats: record.get("stats"),
                 gid: "item"
             });
         }
@@ -424,6 +461,28 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }, this)
         if(this.getStore("result").getCount() == 0) this.set("totalRate", this.const_emptyText)
         else this.set("totalRate", totalRate / Math.pow(100, this.getStore("result").getCount()) + "%")
+    },
+    getResultStats: function(){
+        var totalStats = {};
+        this.getStore("result").each(function(record){
+            var stats = record.get("stats")
+            for(var x in stats){
+                if(totalStats[x] == null){
+                    if(x == "text"){
+                        totalStats[x] = []
+                    } else {
+                        totalStats[x] = 0
+                    }
+                }
+                if (x == "text"){
+                    totalStats[x].push(stats[x])
+                } else {
+                    totalStats[x] += stats[x]
+                }
+                
+            }
+        }, this)
+        return totalStats
     },
     changeItemBoost: function(boost){
         this.itemBoost = boost;

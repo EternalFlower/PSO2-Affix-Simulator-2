@@ -24,11 +24,11 @@ Ext.define("pso2affixsim.view.main.nav.NavView", {
 			}
         }
 	],
-
+	/*
 	bbar: {
 		xtype: "bottomview",
 		reference: "bottomview",
 		height: 50
-	}
+	}*/
 });
 

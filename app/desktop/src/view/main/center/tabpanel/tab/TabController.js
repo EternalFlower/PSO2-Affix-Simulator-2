@@ -27,8 +27,11 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     updateSelectionList: function(){
         this.getViewModel().updateSelectionList();
     },
-    updateSelectedOptions: function(){
-        this.getViewModel().updateSelectedOptions();
+    updateSelectedOptions: function(data, isSelect){
+        this.getViewModel().updateSelectedOptions(data, isSelect);
+    },
+    makeFactor: function(tableIndex, rowIndex, isFactor){
+        this.getViewModel().makeFactor(tableIndex, rowIndex, isFactor);
     },
     removeSelectedList: function(ability){
         return this.getViewModel().removeSelectedList(ability);
@@ -53,5 +56,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     },
     changeSameItemBoost: function (checkbox, newValue, oldValue, eOpts){
         this.getViewModel().changeSameItemBonus(newValue);
+    },
+    getStats: function () {
+        return this.getViewModel().getResultStats();
     }
 });

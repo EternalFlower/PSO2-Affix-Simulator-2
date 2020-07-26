@@ -1,0 +1,1260 @@
+{
+    "children": [
+        {
+            "name": "Stat Enhancement",
+            "expanded": true,
+            "children": [
+                {
+                    "name": "Power",
+                    "expanded": true,
+                    "children":
+                    [
+                        {
+                            "name": "Power I",
+                            "code": "AA01",
+                            "gid": "AA",
+                            "lvl": 1,
+                            "lvlup": "AA02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 10
+                            },
+                            "type": "strike",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Power II",
+                            "code": "AA02",
+                            "gid": "AA",
+                            "lvl": 2,
+                            "lvlup": "AA03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 20
+                            },
+                            "type": "strike",
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "Power III",
+                            "code": "AA03",
+                            "gid": "AA",
+                            "lvl": 3,
+                            "lvlup": "AA04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 30
+                            },
+                            "type": "strike",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Power IV",
+                            "code": "AA04",
+                            "gid": "AA",
+                            "lvl": 4,
+                            "lvlup": "AA05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 35
+                            },
+                            "type": "strike",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Power V",
+                            "code": "AA05",
+                            "gid": "AA",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 40
+                            },
+                            "type": "strike",
+                            "leaf": true	
+                        },
+                        {
+                            "name": "Power VI",
+                            "code": "AA06",
+                            "gid": "AA",
+                            "lvl": 6,
+                            "receipt": 0,
+                            "stats": {
+                                "satk": 45
+                            },
+                            "type": "strike",
+                            "leaf": true
+                        }
+                    ]                    
+                },
+                {
+                    "name": "Shoot",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Shoot I",
+                            "code": "AB01",                            
+                            "gid": "AB",
+                            "lvl": 1,
+                            "lvlup": "AB02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 10
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Shoot II",
+                            "code": "AB02",
+                            "gid": "AB",
+                            "lvl": 2,
+                            "lvlup": "AB03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 20
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Shoot III",
+                            "code": "AB03",                            
+                            "gid": "AB",
+                            "lvl": 3,
+                            "lvlup": "AB04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 30
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Shoot IV",
+                            "code": "AB04",                            
+                            "gid": "AB",
+                            "lvl": 4,
+                            "lvlup": "AB05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 35
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Shoot V",
+                            "code": "AB05",                            
+                            "gid": "AB",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 40
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Shoot VI",
+                            "code": "AB06",
+                            "gid": "AB",
+                            "lvl": 6,
+                            "receipt": 0,
+                            "stats": {
+                                "ratk": 45
+                            },
+                            "type": "shoot",
+                            "leaf": true
+                        }
+                    ]
+                },
+                {
+                    "name": "Technique",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Technique I",
+                            "code": "AC01",
+                            "gid": "AC",
+                            "lvl": 1,
+                            "lvlup": "AC02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 10
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Technique II",
+                            "code": "AC02",
+                            "gid": "AC",
+                            "lvl": 2,
+                            "lvlup": "AC03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 20
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Technique III",
+                            "code": "AC03",
+                            "gid": "AC",
+                            "lvl": 3,
+                            "lvlup": "AC04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 30
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Technique IV",
+                            "code": "AC04",
+                            "gid": "AC",
+                            "lvl": 4,
+                            "lvlup": "AC05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 35
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Technique V",
+                            "code": "AC05",
+                            "gid": "AC",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 40
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        },
+                        {
+                            "name": "Technique VI",
+                            "code": "AC06",
+                            "gid": "AC",
+                            "lvl": 6,
+                            "receipt": 0,
+                            "stats": {
+                                "tatk": 45
+                            },
+                            "type": "tech",
+                            "leaf": true
+                        }
+                    ]
+                },
+                {
+                    "name": "Arm",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Arm I",
+                            "code": "AD01",
+                            "gid": "AD",
+                            "lvl": 1,
+                            "lvlup": "AD02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "dex": 10 
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Arm II",
+                            "code": "AD02",
+                            "gid": "AD",
+                            "lvl": 2,
+                            "lvlup": "AD03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "dex": 20 
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Arm III",
+                            "code": "AD03",
+                            "gid": "AD",
+                            "lvl": 3,
+                            "lvlup": "AD04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "dex": 30
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Arm IV",
+                            "code": "AD04",
+                            "gid": "AD",
+                            "lvl": 4,
+                            "lvlup": "AD05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "dex": 35
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Arm V",
+                            "code": "AD05",
+                            "gid": "AD",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "dex": 40
+                            },
+                            "leaf": true
+                        }
+                    ]
+                },
+                {
+                    "name": "Body",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Body I",
+                            "code": "AE01",
+                            "gid": "AE",
+                            "lvl": 1,
+                            "lvlup": "AE02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "sdef": 10
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Body II",
+                            "code": "AE02",
+                            "gid": "AE",
+                            "lvl": 2,
+                            "lvlup": "AE03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "sdef": 20
+                            },
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "Body III",
+                            "code": "AE03",
+                            "gid": "AE",
+                            "lvl": 3,
+                            "lvlup": "AE04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "sdef": 30
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Body IV",
+                            "code": "AE04",
+                            "gid": "AE",
+                            "lvl": 4,
+                            "lvlup": "AE05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "sdef": 35
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Body V",
+                            "code": "AE05",
+                            "gid": "AE",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "sdef": 40
+                            },
+                            "leaf": true	
+                        }
+                    ]
+                },
+                {
+                    "name": "React",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "React I",
+                            "code": "AF01",
+                            "gid": "AF",
+                            "lvl": 1,
+                            "lvlup": "AF02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "rdef": 10
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "React II",
+                            "code": "AF02",
+                            "gid": "AF",
+                            "lvl": 2,
+                            "lvlup": "AF03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "rdef": 20
+                            },
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "React III",
+                            "code": "AF03",
+                            "gid": "AF",
+                            "lvl": 3,
+                            "lvlup": "AF04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "rdef": 30
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "React IV",
+                            "code": "AF04",
+                            "gid": "AF",
+                            "lvl": 4,
+                            "lvlup": "AF05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "rdef": 35
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "React V",
+                            "code": "AF05",
+                            "gid": "AF",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "rdef": 40
+                            },
+                            "leaf": true	
+                        }
+                    ]
+                },
+                {
+                    "name": "Mind",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Mind I",
+                            "code": "AG01",
+                            "gid": "AG",
+                            "lvl": 1,
+                            "lvlup": "AG02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tdef": 10
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Mind II",
+                            "code": "AG02",
+                            "gid": "AG",
+                            "lvl": 2,
+                            "lvlup": "AG03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tdef": 20
+                            },
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "Mind III",
+                            "code": "AG03",
+                            "gid": "AG",
+                            "lvl": 3,
+                            "lvlup": "AG04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tdef": 30
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Mind IV",
+                            "code": "AG04",
+                            "gid": "AG",
+                            "lvl": 4,
+                            "lvlup": "AG05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tdef": 35
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Mind V",
+                            "code": "AG05",
+                            "gid": "AG",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "tdef": 40
+                            },
+                            "leaf": true	
+                        }
+                    ]
+                },
+                {
+                    "name": "Stamina",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Stamina I",
+                            "code": "AH01",
+                            "gid": "AH",
+                            "lvl": 1,
+                            "lvlup": "AH02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 20
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Stamina II",
+                            "code": "AH02",
+                            "gid": "AH",
+                            "lvl": 2,
+                            "lvlup": "AH03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 40
+                            },
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "Stamina III",
+                            "code": "AH03",
+                            "gid": "AH",
+                            "lvl": 3,
+                            "lvlup": "AH04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 50
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Stamina IV",
+                            "code": "AH04",
+                            "gid": "AH",
+                            "lvl": 4,
+                            "lvlup": "AH05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 60
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Stamina V",
+                            "code": "AH05",
+                            "gid": "AH",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 70
+                            },
+                            "leaf": true	
+                        },
+                        {
+                            "name": "Stamina VI",
+                            "code": "AH06",
+                            "gid": "AH",
+                            "lvl": 6,
+                            "receipt": 0,
+                            "stats": {
+                                "hp": 80
+                            },
+                            "leaf": true	
+                        }
+                    ]
+                },
+                {
+                    "name": "Spirita",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Spirita I",
+                            "code": "AI01",
+                            "gid": "AI",
+                            "lvl": 1,
+                            "lvlup": "AI02",
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 2
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Spirita II",
+                            "code": "AI02",
+                            "gid": "AI",
+                            "lvl": 2,
+                            "lvlup": "AI03",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                30,
+                                50
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 3
+                            },
+                            "leaf": true
+                        },
+                        {                            
+                            "name": "Spirita III",
+                            "code": "AI03",
+                            "gid": "AI",
+                            "lvl": 3,
+                            "lvlup": "AI04",
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                20,
+                                40
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 4
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Spirita IV",
+                            "code": "AI04",
+                            "gid": "AI",
+                            "lvl": 4,
+                            "lvlup": "AI05",
+                            "rate": [
+                                40,
+                                60,
+                                80
+                            ],
+                            "generate": [
+                                10,
+                                30
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 5
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Spirita V",
+                            "code": "AI05",
+                            "gid": "AI",
+                            "lvl": 5,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 6
+                            },
+                            "leaf": true	
+                        },
+                        {
+                            "name": "Spirita VI",
+                            "code": "AI0G",
+                            "gid": "AI",
+                            "lvl": 6,
+                            "receipt": 0,
+                            "stats": {
+                                "pp": 7
+                            },
+                            "leaf": true	
+                        }
+                    ]
+                },
+                {
+                    "name": "Ability",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "code": "AJ01",
+                            "name": "Ability I",
+                            "gid": "AJ",
+                            "lvl": 1,
+                            "rate": [
+                                100
+                            ],
+                            "receipt": 5,
+                            "stats": {
+                                "all": 5
+                            },
+                            "type": "special",
+                            "leaf": true
+                        },
+                        {
+                            "code": "AJ02",
+                            "name": "Ability II",
+                            "gid": "AJ",
+                            "lvl": 2,
+                            "rate": [
+                                20,
+                                40,
+                                60
+                            ],
+                            "receipt": 5,
+                            "stats": {
+                                "all": 10
+                            },
+                            "type": "special",
+                            "leaf": true
+                        },
+                        {
+                            "code": "AJ03",
+                            "name": "Ability III",
+                            "gid": "AJ",
+                            "lvl": 3,
+                            "rate": [
+                                10,
+                                30,
+                                50
+                            ],
+                            "receipt": 5,
+                            "stats": {
+                                "all": 15
+                            },
+                            "type": "special",
+                            "leaf": true
+                        },
+                        {
+                            "code": "AJ04",
+                            "name": "Ability IV",
+                            "gid": "AJ",
+                            "lvl": 4,
+                            "stats": {
+                                "all": 20
+                            },
+                            "type": "special",
+                            "leaf": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Stat Enchancement (Lesser)",
+            "expanded": false,
+            "children": []
+        },
+        {
+            "name": "Stat Enchancement (Special)",
+            "expanded": false,
+            "children": []
+        },
+        {
+            "name": "Resistance",
+            "expanded": false,
+            "children": [
+                {
+                    "name": "Blow Resist",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Blow Resist I",
+                            "code": "CA01",
+                            "gid": "CA",
+                            "lvl": 1,
+                            "rate": [
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],                                
+                            "stats": {
+                                "s_res": 3
+                            },
+                            "leaf": true
+                        }
+                    ]
+                }
+                
+            ]
+        },
+        {
+            "name": "Status Effect",
+            "expanded": false,
+            "children": [
+                {
+                    "name": "Burn",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Burn I",
+                            "code": "DA01",
+                            "gid": "DA",
+                            "lvl": 1,
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "stats": {
+                                "text": "Grants Burn Lvl 1"
+                            },
+                            "leaf": true
+                        }
+                    ]
+                },
+                {
+                    "name": "Freeze",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Freeze I",
+                            "code": "DB01",
+                            "gid": "DB",
+                            "lvl": 1,
+                            "rate": [
+                                60,
+                                80,
+                                100
+                            ],
+                            "generate": [
+                                60,
+                                80
+                            ],
+                            "stats": {
+                                "text": "Grants Freeze Lvl 1"
+                            },
+                            "leaf": true
+                        }
+                    ]
+                }
+                
+            ]
+        },
+        {
+            "name": "Soul",
+            "expanded": false,
+            "children": [
+                {
+                    "name": "Free Field Boss",
+                    "expanded": false,
+                    "children": [
+                        {
+                            "name": "Gunne Soul",
+                            "code": "EA01",
+                            "gid": "E",
+                            "rate": [
+                                0,
+                                50,
+                                80
+                            ],
+                            "stats": {
+                                "satk": 15,
+                                "hp": 45
+                            },
+                            "boost": {
+                                "type": "soul",
+                                "target": [
+                                    "AA",
+                                    "AE",
+                                    "AH"
+                                ]
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "name": "Zigmor Soul",
+                            "code": "EA02",
+                            "gid": "E",
+                            "rate": [
+                                0,
+                                50,
+                                80
+                            ],
+                            "stats": {
+                                "satk": 15,
+                                "pp": 4
+                            },
+                            "boost": {
+                                "type": "soul",
+                                "target": [
+                                    "AA",
+                                    "AI",
+                                    "HC",
+                                    "JF"
+                                ]
+                            },
+                            "leaf": true
+                        }
+                    ]
+                }
+                
+            ]
+        },
+        {
+            "name": "Receptor",
+            "expanded": false,
+            "children": [
+                {
+                    "name": "Soul Receptor",
+                    "code": "XA01",
+
+                    "stats": {
+                        "satk": 15,
+                        "hp": 45
+                    },
+
+                    "leaf": true
+                }
+            ]
+        }
+    ]
+}

@@ -6,5 +6,10 @@ Ext.define('pso2affixsim.view.main.TabPanel', {
     reference: 'tabpanel',
     region: "center",
     layout: "fit",
-    cls: 'x-tabpanelview'
+    cls: 'x-tabpanelview',
+    tabBar: {
+        defaults: {
+            padding: 6
+        }
+    },
 });

@@ -16,6 +16,10 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
   },
   changeBaseColor: function ( field, color, previousColor, eOpts ) {
     if(previousColor != null){
+      var storage = Ext.util.LocalStorage.get("affixsim");
+      if(storage){
+        storage.setItem("base-color", color)
+      }
       Fashion.css.setVariables(
         {
           "base-color": '#' + color,
@@ -26,6 +30,10 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
   },
   changeDarkMode: function (checkbox, newValue, oldValue, eOpts){
     this.getViewModel().set('dark_mode', newValue);
+    var storage = Ext.util.LocalStorage.get('affixsim');
+    if(storage){
+      storage.setItem("dark-mode", newValue)
+    }
     Fashion.css.setVariables(
       {
         "base-color": '#' + this.getViewModel().get('color'),
@@ -38,7 +46,7 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
           xtype: "tabview"
         });
 
-    //tabPanel.setActiveTab(tab);
+    tabPanel.setActiveTab(tab);
   },
 
   onHeaderViewNavToggle: function () {

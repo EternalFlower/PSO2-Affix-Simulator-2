@@ -30,9 +30,9 @@ function description(value, record){
     if(stats.light_res) append(text[17], stats.light_res);
     if(stats.dark_res) append(text[18], stats.dark_res);
     if(stats.all_res) append(text[19], stats.all_res);
-    if(stats.other){
+    if(stats.text){
         if(output.length != 0) output += ",\n";
-        output += stats.other;
+        output += stats.text;
     }
     return output;
 }
@@ -255,7 +255,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 10
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true
                             },
                             {
@@ -277,7 +277,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 20
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true
                             },
                             {                            
@@ -299,7 +299,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 30
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true
                             },
                             {
@@ -321,7 +321,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 35
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true
                             },
                             {
@@ -338,7 +338,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 40
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true	
                             },
                             {
@@ -350,7 +350,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                 stats: {
                                     satk: 45
                                 },
-                                type: "power",
+                                type: "strike",
                                 leaf: true
                             }
                         ]                    
@@ -1376,7 +1376,34 @@ Ext.define('pso2affixsim.store.Ability', {
                                     80
                                 ],
                                 stats: {
-                                    other: "Grants Burn Lvl 1"
+                                    text: "Grants Burn Lvl 1"
+                                },
+                                //visible: false,
+                                leaf: true
+                            }
+                        ]
+                    },
+                    {
+                        name: "Freeze",
+                        expanded: false,
+                        children: [
+                            {
+                                name: "Freeze I",
+                                code: "DB01",
+                                gid: "DB",
+								lvl: 1,
+                                //lvlup: "DA02",
+                                rate: [
+                                    60,
+                                    80,
+                                    100
+                                ],
+                                generate: [
+                                    60,
+                                    80
+                                ],
+                                stats: {
+                                    text: "Grants Freeze Lvl 1"
                                 },
                                 //visible: false,
                                 leaf: true
@@ -1431,7 +1458,7 @@ Ext.define('pso2affixsim.store.Ability', {
                                     pp: 4
                                 },
                                 boost: {
-                                    type: 'mutation2',
+                                    type: 'soul',
                                     target: [
                                         "AA",
                                         "AI",
@@ -1444,6 +1471,23 @@ Ext.define('pso2affixsim.store.Ability', {
                         ]
                     }
                     
+                ]
+            },
+            {
+                name: "Receptor",
+                expanded: false,
+                children: [
+                    {
+                        name: "Soul Receptor",
+                        code: "XA01",
+
+                        stats: {
+                            satk: 15,
+                            hp: 45
+                        },
+
+                        leaf: true
+                    }
                 ]
             }
         ]

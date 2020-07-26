@@ -9,6 +9,14 @@
     "font-awesome",
     "ext-ux"
   ],
+  "language": {
+
+    "js": {
+
+        "output": "ES6"
+
+    }
+  },
 
   "builds": {
     "desktop": {

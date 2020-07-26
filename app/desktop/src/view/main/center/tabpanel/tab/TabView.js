@@ -14,47 +14,41 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         type: "vbox",
         align: "stretch"
     },
+    factorMenuText: {
+        on: "Add Factor",
+        off: "Cancel Factor"
+    },
     autoScroll: true,
     closable: true,
     initComponent: function(){
-        this.callParent(arguments);
+        this.superclass.initComponent.apply(this, arguments);
         this.initContextMenu();
         this.createTopPanel();
         this.createBottomPanel();  
     },
     initContextMenu: function(){
-        var synComp = this,
-            buttons = [];
-        /*buttons.push({
+        var buttons = [];
+        buttons.push({
             iconCls: "x-factor-icon",
-            text: synComp.factorMenuText.on,
+            text: this.factorMenuText.on,
             scope: this,
-            handler: function(menuItem, event) {
-                var cell = this.selectedGridCell;
+            handler: function(item, event, eOpts) {
+                var cell = this.holdInfo;
                 if (cell) {
-                    var affixEntry = cell.record.get("slot");
-                    if (menuItem.text === this.factorMenuText.on) {
-                        cell.view.store.each(function(slot, index) {
-                            var affixEntry = slot.get("slot");
-                            if (affixEntry != null && affixEntry.factor === true) {
-                                slot.set("slot", this.makeFactor(affixEntry, false));
-                                return false
-                            }
-                            return true
-                        }, this);
-                        cell.record.set("slot", this.makeFactor(affixEntry, true))
+                    if (item.text === this.factorMenuText.on) {
+                        this.getController().makeFactor(cell.tableIndex, cell.rowIndex, true);
                     } else {
-                        cell.record.set("slot", this.makeFactor(affixEntry, false))
+                        this.getController().makeFactor(cell.tableIndex, cell.rowIndex, false);
                     }
                 }
-                this.selectedGridCell = null
+                delete(this.holdInfo)
             }
-        });*/
+        });
         buttons.push({
             iconCls: "x-del-icon",
             text: "Delete",
-            scope: synComp,
-            handler: function() {
+            scope: this,
+            handler: function(item, event, eOpts) {
                 var cell = this.holdInfo;
                 if (cell) {
                     this.getController().removeAbility(cell.tableIndex, cell.rowIndex);
@@ -76,6 +70,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             collapsible: true,
             border: true,
             cls: 'x-tabgrid',
+            header: {
+                padding: 6
+            },
             columns: [{
                 dataIndex: "name",
                 header: "Slot",
@@ -86,6 +83,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                 header: "Ability",
                 renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                     if (value != null) {
+                        if (value.factor) {
+                            metaData.tdCls = "x-factor-icon"
+                        }
                         return value.name
                     }
                     return ""
@@ -145,6 +145,11 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                             this.holdInfo = {
                                 tableIndex: index,
                                 rowIndex: rowIndex
+                            }
+                            if (record.get('slot').factor !== true) {
+                                this.contextMenu.items.getAt(0).setText(this.factorMenuText.on)
+                            } else {
+                                this.contextMenu.items.getAt(0).setText(this.factorMenuText.off)
                             }
                             this.contextMenu.showAt(event.getXY())
                         }
@@ -250,7 +255,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             potentialboost.reset();
         }
 
-        checkboxgroup.relayEvents(vm.getStore('selection'), ['SelectionListChanged', 'DisabledChanged'], 'selectionStore');
+        checkboxgroup.relayEvents(vm.getStore('selection'), ['SelectionListChanged', 'DisabledCheckbox', 'SetValue'], 'selectionStore');
         checkboxgroup.on('selectionStoreSelectionListChanged', function (store, eOpts) {
             var me = this,
                 updateItems = function () {
@@ -265,6 +270,10 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
     
             store.each(function (record) {
+                var boxLabelHeader = '<div style="float:left;padding-left:3px;">';
+                if(record.get('data').factor){
+                    boxLabelHeader = '<div class="x-factor-icon" style="float:left;margin-left:2px;padding-left:16px">';
+                }
                 cfg.push({
                     xtype: 'checkboxfield',
                     margin: "0 5 0 5",
@@ -272,18 +281,21 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     value: record.get('selected'),
                     disabled: record.get('disable'),
                     record: record,
-                    boxLabel: '<div style="float:left;padding-left:3px;">' + record.get('data').name+ '</div>',
+                    boxLabel: boxLabelHeader + record.get('data').name+ '</div>',
                     afterBoxLabelTpl: '<span style="float:right;margin-top:8px;padding-right:3px;">' + record.get('rate') + "%</span>",
                     listeners: {
                         change: function(checkbox, newValue, oldValue, eOpts ){
                             this.record.set("selected", newValue);
-                            controller.updateSelectedOptions();
+                            controller.updateSelectedOptions(record.get('data'), newValue);
                         },
                         render: function(){
-                            this.relayEvents(vm.getStore('selection'), ['DisabledChanged'], 'selectionStore')
+                            this.relayEvents(vm.getStore('selection'), ['DisabledCheckbox', 'SetValue'], 'selectionStore')
                         },
-                        selectionStoreDisabledChanged: function(){
+                        selectionStoreDisabledCheckbox: function(){
                             this.setDisabled(record.get('disable'));
+                        },
+                        selectionStoreSetValue: function() {
+                            this.setValue(record.get('selected'));
                         }
                     }
                 });
@@ -346,6 +358,63 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                 textAlign: "right"
             },
             anchor: "100%"
+        }))
+
+        bottomRight.add(Ext.create("Ext.button.Button", {
+            xtype: "button",
+            text: "Details",
+            width: '100%',
+            listeners: {
+                scope: this,
+                click: function(button, event, eOpts){
+                    var stats = this.getController().getStats()
+                    var outputText = ""
+                    for (var stat in stats){
+                        if(stat == "text") continue;
+                        if (0 < stats[stat]) {
+                            outputText += "<div>" + stat + '<span style="color:red;font-weight:bold">&nbsp;&nbsp;(+' + Math.abs(stats[stat]) + ")</span></div>"
+                        } else {
+                            outputText += "<div>" + stat + '<span style="color:blue;font-weight:bold">&nbsp;&nbsp;(-' + stats[stat] + ")</span></div>"
+                        }
+                    }
+
+                    for (var index = 0; index < stats["text"]; index++) {
+                        outputText += "<div>" + stats["text"][index] + "</div>"
+                    }
+                    console.log(stats)
+                    Ext.create("widget.window", {
+                        title: "Details",
+                        autoDestroy: true,
+                        closable: true,
+                        width: 600,
+                        autoHeight: true,
+                        modal: true,
+                        layout: "fit",
+                        bodyStyle: {
+                            padding: "5px"
+                        },
+                        items: Ext.createWidget("tabpanel", {
+                            activeTab: 0,
+                            tabBar: {
+                                height: 33,
+                                defaults: {
+                                    padding: 0
+                                }
+                            },
+                            defaults: {
+                                bodyPadding: 5
+                            },
+                            items: [
+                                {
+                                    title: "Abilities",
+                                    html: outputText
+                                } 
+                            ]
+                        })
+                    }).show()
+                }
+            }
+            //disabled: true
         }))
 
         var panels = [{

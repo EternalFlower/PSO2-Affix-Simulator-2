@@ -3,29 +3,43 @@ Ext.define('pso2affixsim.store.Synthesis', {
     alias:'store.synthesis',
     data: [
         {
-            recipe: {
-                AA01: 1,
-                AB01: 1,
-                AC01: 1
-            },
-            result: "AJ01",
+            recipe: [
+                'AA01',
+                'AB01',
+                'AC01'
+            ],
+            result: [
+                "AJ01"
+            ],
             success: 80
         },
         {
-            recipe: {
-                AE01: 1,
-                AF01: 1,
-                AG01: 1
-            },
-            result: "AJ01",
+            recipe: [
+                'AE01',
+                'AF01',
+                'AG01'
+            ],
+            result: [
+                "AJ01"
+            ],
             success: 80
+        },
+        {
+            recipe: [
+                "XA01",
+                "EA*"
+            ],
+            result: [
+                "$$"
+            ],
+            success: 100
         }
     ]
 });
 
 Ext.define('pso2affixsim.store.UpslotRates', {
     extend: 'Ext.data.Store',
-    alias:'store.synthesis',
+    alias:'store.upslotrates',
     data: [
         {
             "false": 100,

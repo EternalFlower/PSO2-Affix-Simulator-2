@@ -7,13 +7,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
         Ext.ux.Mediator.on('groupTypeChange', this.changeGroupTypeBoost, this);
         Ext.ux.Mediator.on('groupValueChange', this.changeGroupValueBoost, this);
     },
-    
-    onItemSelected: function (sender, record) {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
     rename: function () {
         var name = "tttt";
-        this.getViewModel().rename(name);
+        this.getViewModel().renameTab(name);
     },
     addAbility: function(fodder, data){
         this.getViewModel().addAbility(fodder, data);
@@ -32,9 +28,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     },
     makeFactor: function(tableIndex, rowIndex, isFactor){
         this.getViewModel().makeFactor(tableIndex, rowIndex, isFactor);
-    },
-    removeSelectedList: function(ability){
-        return this.getViewModel().removeSelectedList(ability);
     },
     controllerChangeAddItem: function ( combo, record, eOpts ) {
         this.getViewModel().changeItemSelected(record);

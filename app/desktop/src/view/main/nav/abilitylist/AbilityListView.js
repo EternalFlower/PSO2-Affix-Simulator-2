@@ -51,8 +51,23 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
         ]
     }],*/
     bind: {
-        store: 'abilityList'
+        store: "AbilityList_Store"
     },
+    tools: [{
+        type: 'plus',
+        tooltip: 'Expand All',
+        scope: this,
+        callback: function(panel, tool, event) {
+            panel.expandAll();
+        }
+    }, {
+        type: 'minus',
+        tooltip: 'Collapse All',
+        scope: this,
+        callback: function(panel, tool, event) {
+            panel.collapseAll();
+        }
+    }],
     columns: [{
         xtype: 'treecolumn',
         text: 'Name',

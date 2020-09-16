@@ -18,6 +18,8 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         on: "Add Factor",
         off: "Cancel Factor"
     },
+    border: 5,
+    padding: '5 0 0 0',
     autoScroll: true,
     closable: true,
     initComponent: function(){
@@ -225,9 +227,6 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             value: "B01",
             anchor: "100%",
             width: "100%",
-            bind: {
-                disabled: '{itemEnabled}'
-            },
             listeners: {
                 select: 'controllerChangeAddItem'
             }
@@ -249,19 +248,12 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
         })
 
-        var resetComboboxes = function () {
-            additem.reset();
-            itemboost.reset();
-            potentialboost.reset();
-        }
-
         checkboxgroup.relayEvents(vm.getStore('selection'), ['SelectionListChanged', 'DisabledCheckbox', 'SetValue'], 'selectionStore');
         checkboxgroup.on('selectionStoreSelectionListChanged', function (store, eOpts) {
             var me = this,
                 updateItems = function () {
                     me.removeAll();
                     me.add(cfg);
-                    resetComboboxes();
                 },
                 cfg = [];
     
@@ -372,9 +364,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     for (var stat in stats){
                         if(stat == "text") continue;
                         if (0 < stats[stat]) {
-                            outputText += "<div>" + stat + '<span style="color:red;font-weight:bold">&nbsp;&nbsp;(+' + Math.abs(stats[stat]) + ")</span></div>"
+                            outputText += "<div>" + pso2affixsim.Locale[stat] + '<span style="color:red;font-weight:bold">&nbsp;&nbsp;(+' + Math.abs(stats[stat]) + ")</span></div>"
                         } else {
-                            outputText += "<div>" + stat + '<span style="color:blue;font-weight:bold">&nbsp;&nbsp;(-' + stats[stat] + ")</span></div>"
+                            outputText += "<div>" + pso2affixsim.Locale[stat] + '<span style="color:blue;font-weight:bold">&nbsp;&nbsp;(-' + stats[stat] + ")</span></div>"
                         }
                     }
 
@@ -414,7 +406,6 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     }).show()
                 }
             }
-            //disabled: true
         }))
 
         var panels = [{

@@ -40,6 +40,22 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
         "dark-mode": newValue.toString()
       });
   },
+  changeServer: function ( field, newValue, oldValue, eOpts ) {
+    if(oldValue != null){
+      var storage = Ext.util.LocalStorage.get("affixsim");
+      if(storage){
+        storage.setItem("server", newValue)
+      }
+    }
+  },
+  changeLanguage: function ( field, newValue, oldValue, eOpts ) {
+    if(oldValue != null){
+      var storage = Ext.util.LocalStorage.get("affixsim");
+      if(storage){
+        storage.setItem("language", newValue)
+      }
+    }
+  },
   onAddTabClick: function() {
     var tabPanel = this.lookupReference('tabpanel'),
         tab = tabPanel.add({
@@ -49,48 +65,15 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
     tabPanel.setActiveTab(tab);
   },
 
-  onHeaderViewNavToggle: function () {
-    var vm = this.getViewModel();
-    vm.set('navCollapsed', !vm.get('navCollapsed'));
-    //var topPic = this.lookup('topPic');
-    var topPic = Ext.getCmp('topPic');
-    if (vm.get('navCollapsed') == true) {
-      topPic.setData({ src:'resources/desktop/5.jpg', caption:'John Smith', imgStyle: 'imgSmall', height: '100px' });
-    }
-    else {
-      topPic.setData({ src:'resources/desktop/5.jpg', caption:'John Smith', imgStyle: 'imgBig', height: '150px' });
-    }
-
-  },
-
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();
     vm.set('detailCollapsed', !vm.get('detailCollapsed'));
     var detailtoggle = this.lookup('detailtoggle');
     if(vm.get('detailCollapsed') === true) {
-      //detailtoggle.setType('prev')
       detailtoggle.setIconCls('x-fa fa-arrow-left')
     }
     else {
-      //detailtoggle.setType('next')
       detailtoggle.setIconCls('x-fa fa-arrow-right')
     }
-  },
-
-  onToolButtonClicked: function (button) {
-    Ext.Msg.show({
-      title:'Tool Button',
-      closable: false,
-      message: button.name + ' tool button was clicked',
-      buttons: Ext.Msg.OK,
-      icon: Ext.Msg.INFO,
-      fn: function(btn) {
-        if (btn === 'ok') {
-          console.log('ok pressed');
-        } else {
-          console.log('??? pressed');
-        }
-      }
-    })
   }
 });

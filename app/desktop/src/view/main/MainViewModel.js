@@ -13,14 +13,19 @@ Ext.define('pso2affixsim.view.main.MainViewModel', {
 		detailview_max_width: 300,
 		detailview_min_width:   0,
 		color: '025B80',
-		dark_mode: false
+		dark_mode: false,
+		server: 1,
+		language: 1
 	},
 	constructor: function (){
 		this.callParent(arguments);
 		var local = Ext.util.LocalStorage.get('affixsim');
+		console.log(local.getItem("language"))
 		this.setData({
-			'color': local.getItem("base-color"),
-			'dark_mode': local.getItem("dark-mode")
+			'color': local.getItem("base-color") ? local.getItem("base-color") : '025B80',
+			'dark_mode': local.getItem("dark-mode") ? local.getItem("dark-mode") : false,
+			'server': local.getItem("server") ? parseInt(local.getItem("server")) : 1,
+			'language': local.getItem("language") ? parseInt(local.getItem("language")) : 1
 		})
 	},
 	formulas: {

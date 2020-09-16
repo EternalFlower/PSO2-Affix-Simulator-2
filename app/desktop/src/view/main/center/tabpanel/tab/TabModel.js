@@ -1,7 +1,3 @@
-/**
- * This class is the view model for the Main view of the application.
- */
-
 Ext.define("PSO2.Slot", {
     extend: "Ext.data.Model",
     fields: ["id", "name", "slot"]
@@ -16,6 +12,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     const_MaxSlot: 9,
     const_emptyText: "&nbsp",
 
+    addItem: null,
     itemBoost: 0,
     potentialboost: 0,
     campaignBoost: 0,
@@ -94,8 +91,10 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
         this.get('panels').push(store);
     },
-    rename: function(name){
-        this.setData( {"title":name} )
+    renameTab: function(name){
+        this.setData({
+            "title": name
+        })
     },
     addAbility:function(fodder, data){
         var store = this.get("panels")[fodder];
@@ -117,6 +116,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     removeAbility:function(tableIndex, index){
         var store = this.get('panels')[tableIndex];
         var slotCount = store.getAbilityCount();
+
         if(index == slotCount - 1){
             store.getAt(index).set("slot", null)
         } else {
@@ -125,6 +125,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 store.getAt(entry + 1).set("slot", null);
             }
         }
+
         this.updateSelectionList();
     },
     makeFactor:function(tableIndex, index, isFactor){
@@ -166,6 +167,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         slot = store.getAt(indexDrag).get("slot");
         store.getAt(indexDrag).set("slot", store.getAt(indexDrop).get("slot"));
         store.getAt(indexDrop).set("slot", slot);
+
         this.updateSelectionList();
     },
     suspendUpdateViewSelectionList: function(){
@@ -180,82 +182,115 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.maximumAbilitySelectedCheck();
     },
     updateSelectionList: function(){
-        var abilityMap = new Map();
+        
         this.set("totalRate", this.const_emptyText)
 
-        var abilityList = Ext.getStore("abilityList");
+        var Ability_Store = Ext.getStore("AbilityList_Store");
         var selectionStore = this.getStore("selection");
-        var baseCount = this.get("panels")[0].getAbilityCount()
-
+        
         this.getStore("result").removeAll()
 
         this.suspendUpdateViewSelectionList();
 
+        var minAbilityCount = this.get("panels")[0].getAbilityCount()
+
+        var abilityPool = new Map();
+        var tagPool = new Map();
+        
+
         for(var i = 0; i < this.const_MaxFodder; i++){
-            var panel = this.get("panels")[i];
-            var abilityCount = panel.getAbilityCount();
-            if(abilityCount != 0 && abilityCount < baseCount){
+
+            var fodder = this.get("panels")[i];
+            var numAbiFodderCount = fodder.getAbilityCount();
+
+            if(numAbiFodderCount != 0 && numAbiFodderCount < minAbilityCount){
                 this.updateViewSelectionList();
                 return;
             }
-            for(var j = 0; j < abilityCount; j++){
-                var slot = panel.getAt(j).get("slot");
+
+            for(var j = 0; j < numAbiFodderCount; j++){
+
+                var slot = fodder.getAt(j).get("slot");
+
                 if(slot == null) break;
-                if(!abilityMap.has(slot.code)){
-                    abilityMap.set(slot.code, {
+
+                if(!abilityPool.has(slot.code)){
+                    abilityPool.set(slot.code, {
                         data: slot,
                         count: 1
                     })
                 } else {
-                    abilityMap.get(slot.code).count += 1;
+                    abilityPool.get(slot.code).count += 1
+                }
+
+                if(slot.tag){
+                    for(var index in slot.tag){
+                        if(!tagPool.has(slot.tag[index])){
+                            tagPool.set(slot.tag[index], 1)
+                        } else {
+                            tagPool.set(slot.tag[index], tagPool.get(slot.tag[index]) + 1)
+                        }
+                    }
                 }
             }
         }
 
-        var boostTarget = new Map();
+        var boostTag = new Map();
+        var boostAbility = new Map();
 
-        abilityMap.forEach(function(value, key){
-            if(value.data.boost ==  null){
-                return;
-            } 
-            var targets = value.data.boost.target
+        abilityPool.forEach(function(value, key){
+
+            if(!value.data.boost) return;
+
+            var tags = value.data.boost.target
             
-            targets.forEach(function(target){
-                if(!boostTarget.has(target)){
-                    boostTarget.set(target, new Set())
+            tags.forEach(function(target){
+                if(!boostTag.has(target)){
+                    boostTag.set(target, new Set())
                 } 
-                boostTarget.get(target).add(value.data.boost.type)
+                boostTag.get(target).add(value.data.boost.type)
             })
         })
+
         console.log('hit me')
 
         var abilityBoost = Ext.getStore('abilityboost');
 
-        var maxBoostFn = function (data, key_ability_code, rule){
-            var boost = 0;
-            boostTarget.forEach(function(value_targets, key_target_code){
-                if(key_target_code == key_ability_code.substr(0, key_target_code.length)){
+        var maxBoostFn = function (ability_data, rate, rule){
+            var finalBoost = 0;
+            boostTag.forEach(function(value_targets, target_tag){
+
+                if(ability_data.tag && ability_data.tag.includes(target_tag)){
                     value_targets.forEach(function(value_target){
                         var boostTypeIndex = abilityBoost.findBy(function(record, id){
                             return record.get('type') == value_target
                         })
                         if(boostTypeIndex > -1 && abilityBoost.getAt(boostTypeIndex).get(rule) != null){
-                            boost = Math.max(abilityBoost.getAt(boostTypeIndex).get(rule)[data.receipt][data.lvl ? data.lvl : 0], boost)
+                            var boost_array = abilityBoost.getAt(boostTypeIndex).get(rule)[ability_data.boost_class]
+                            if(!ability_data.lvl || boost_array.length > ability_data.lvl){
+                                var boost = boost_array[ability_data.lvl ? ability_data.lvl : 0]
+                                if(typeof(boost) == "object"){
+                                    finalBoost = (rate + boost["boost"]) <= boost["max"] ? boost["boost"] : boost["max"] - rate
+                                    finalBoost = Math.max(boost_array[ability_data.lvl ? ability_data.lvl : 0], finalBoost)
+                                } else {
+                                    finalBoost = Math.max(boost_array[ability_data.lvl ? ability_data.lvl : 0], finalBoost)
+                                }
+                            }
                         }
                     })
                 }
             })
-            return boost;
+
+            return finalBoost;
         }
         
         // Basic Transfer
-        abilityMap.forEach(function (value_ability_data, key_ability_code) {
+        abilityPool.forEach(function (value_ability_data, key_ability_code) {
             var data = value_ability_data.data;
             var count = value_ability_data.count;
             if(data.rate){
                 var rate = data.rate[Math.min(Math.max(count - 1, 0), data.rate.length - 1)];
-                var boost = maxBoostFn(data, key_ability_code, 'transfer');
-
+                var boost = maxBoostFn(data, rate, 'transfer');
                 rate += boost;
                 
                 if(rate){
@@ -270,14 +305,12 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
 
         // Level Up
-        abilityMap.forEach(function (value_ability_data, key_ability_code) {
-            var data = value_ability_data.data;
-            var count = value_ability_data.count;
+        abilityPool.forEach(function (tag_data, tag) {
+            var data = tag_data.data;
+            var count = tag_data.count;
             if(data.lvlup && count > 1){
                 var rate = data.generate[Math.min(Math.max(count - 2, 0), data.generate.length - 1)];
-
-                var boost = maxBoostFn(data, key_ability_code, 'create');
-
+                var boost = maxBoostFn(data, rate, 'create');
                 rate += boost;
 
                 if(rate){
@@ -289,7 +322,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                         if(found.get("rate") < rate)
                             found.set("rate", rate)                      
                     } else {
-                        var lvlup = abilityList.findNode("code", data.lvlup)
+                        var lvlup = Ability_Store.findNode("code", data.lvlup)
                         selectionStore.add({
                             data: lvlup.data,
                             rate: rate,
@@ -306,12 +339,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         synthesisList.each(function(record){
             var recipe = record.get("recipe");
             var created = true;
-            var abilityMapCopy = new Map(abilityMap)
+            var abilityMapCopy = new Map(abilityPool)
             var result;
+
             for(var i = 0; i < recipe.length; i++){
                 var item = recipe[i];
                 if(item[item.length - 1] == '*'){
-                    var codeList = Array.from(abilityMap.keys())
+                    var codeList = Array.from(abilityPool.keys())
                     result = codeList.filter(function(element){
                         return element.substring(0, item.length - 1) == item.substring(0, item.length - 1)
                     })
@@ -322,12 +356,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                     }
                 }
             }
+
             if(created){
                 var results = record.get("result");
                 for(var i = 0; i < results.length; i++){
                     if(results[i] == "$$"){
                         for(var j = 0; j < result.length; j++){
-                            var synthesis = abilityList.findNode("code", result[j])
+                            var synthesis = Ability_Store.findNode("code", result[j])
                             selectionStore.add({
                                 data: synthesis.data,
                                 rate: record.get("success"),
@@ -336,7 +371,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                             });
                         }
                     } else {
-                        var synthesis = abilityList.findNode("code", results[i])
+                        var synthesis = Ability_Store.findNode("code", results[i])
                         selectionStore.add({
                             data: synthesis.data,
                             rate: record.get("success"),
@@ -347,14 +382,22 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 }
             }
         });
-        
+
+        if (this.addItem){
+            selectionStore.add({
+                data: this.addItem.data,
+                rate: this.addItem.get("rate"),
+                disable: false,
+                selected: false
+            })
+        } 
         this.updateViewSelectionList();
     },
     updateSelectedOptions: function(newSelect, isNewSelect){
-       
         var result = this.getStore("result");
         var selectionList = this.getStore("selection");
         result.removeAll();
+
         selectionList.each(function(record){
             if(record.get("selected")){
                 var data = record.get('data')
@@ -373,6 +416,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 
             }
         })
+
         selectionList.fireEvent("SetValue", selectionList)
         this.maximumAbilitySelectedCheck();
         this.updateRates();
@@ -384,31 +428,17 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 record.set("disable", maxed);
             }
         })
-        var itemExists = this.getStore("result").findRecord("gid", "item");
-        this.set("itemEnabled", !itemExists && maxed)
+        
         this.getStore("selection").fireEvent("DisabledCheckbox", this.getStore("selection"))
     },
     changeItemSelected: function(record){
-        var removed = this.getStore("result").findRecord("gid", "item");
-        if(removed){
-            var index = this.getStore("result").find("name", removed.get("name"), 0, false, false, true);
-            if(index != -1) this.getStore("result").removeAt(index)
-        }
-
-        if(record && record.get("name")){
-            this.getStore("result").add({
-                name: record.get("name"), 
-                baserate: record.get("rate"), 
-                rate: record.get("rate"), 
-                stats: record.get("stats"),
-                gid: "item"
-            });
-        }
-        this.maximumAbilitySelectedCheck();
-        this.updateRates();
+        var abilityList = Ext.getStore("AbilityList_Store");
+        this.addItem = abilityList.findNode("code", record.get("code"))
+        
+        this.updateSelectionList();
     },
     updateRates: function(){
-        var abilityList = Ext.getStore("abilityList");
+        var abilityList = Ext.getStore("AbilityList_Store");
         var itemList = Ext.getStore('item');
         var upslotRates = Ext.getStore('upslotrates');
         var isUpslotting = this.get("panels")[0].getAbilityCount() + 1 == this.getStore("result").getCount();
@@ -438,14 +468,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         var totalRate = 100;
         this.getStore("result").each(function(record){
-            var rate = record.get("baserate");
-            // To Deal with Floating Point precision
-            rate = rate * 100 * sameItemMultiplier / 100;
-            if(isUpslotting) {
-                rate = upslotMuliplier * rate / 100;
-            }
-            
-            rate = rate + this.itemBoost + this.campaignBoost + this.potentialboost;
+            var rate = record.get("baserate") + this.campaignBoost;
+
             if(record.get("gid") == "item"){
                 var item = itemList.findRecord("name", record.get("name"));
                 if(item && item.get("type") == this.groupBoost.type){
@@ -455,9 +479,17 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 rate = rate + this.groupBoost.boost;
             }
 
-            rate = Math.min(100,rate);
+            rate = Math.floor(rate * sameItemMultiplier);
+            if(!record.get("noEx")){
+                rate = rate * upslotMuliplier / 100
+            }
+
+            rate = rate + this.itemBoost + this.potentialboost;
+            
+            rate = Math.min(100, rate);
             record.set("rate", rate)
             totalRate = totalRate * rate;
+
         }, this)
         if(this.getStore("result").getCount() == 0) this.set("totalRate", this.const_emptyText)
         else this.set("totalRate", totalRate / Math.pow(100, this.getStore("result").getCount()) + "%")
@@ -466,16 +498,39 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var totalStats = {};
         this.getStore("result").each(function(record){
             var stats = record.get("stats")
+            var all = ["satk", "ratk", "tatk", "sdef", "rdef", "tdef"]
+            var all_res = ["s_res", "r_res", "t_res", "fire_res", "ice_res", "ltn_res", "wind_res", "light_res", "dark_res"]
             for(var x in stats){
-                if(totalStats[x] == null){
+                if(x == "all") {
+                    for(var y in all){
+                        if(totalStats[all[y]] == null) {
+                            totalStats[all[y]] = []
+                        }
+                    }
+                } else if(x == "all_res") {
+                    for(var y in all_res){
+                        if(totalStats[all_res[y]] == null) {
+                            totalStats[all_res[y]] = []
+                        }
+                    }
+                } else if(totalStats[x] == null){
                     if(x == "text"){
                         totalStats[x] = []
                     } else {
                         totalStats[x] = 0
                     }
                 }
+
                 if (x == "text"){
                     totalStats[x].push(stats[x])
+                } else if(x == "all"){
+                    for(var y in all){
+                        totalStats[all[y]] += stats[x]
+                    }
+                } else if(x == "all_res"){
+                    for(var y in all_res){
+                        totalStats[all_res[y]] += stats[x]
+                    }
                 } else {
                     totalStats[x] += stats[x]
                 }

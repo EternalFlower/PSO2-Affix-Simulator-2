@@ -12,7 +12,19 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			glyph: 43,
 			listeners: {
 				click: 'onAddTabClick'
-			}
+			},
+			tooltip: "Add new panel"
+		},
+		{
+			xtype: 'button',
+			icon: null,
+			text: "Save Panel",
+			iconCls: 'x-fa fa-save',
+			style: {
+				pointerEvents: 'all'
+			},
+			tooltip: "Not available",
+			disabled: true
 		},
 		'-',
 		{
@@ -59,24 +71,24 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 						value: 0
 					},
 					{
-						text: 'Strike',
-						value: 'strike'
+						text: 'Power',
+						value: 'Power'
 					},
 					{
 						text: 'Shoot',
-						value: 'shoot'
+						value: 'Shoot'
 					},
 					{
 						text: 'Tech',
-						value: 'tech'
+						value: 'Tech'
 					},
 					{
 						text: 'HP & PP',
-						value: 'hppp'
+						value: 'HPPP'
 					},
 					{
 						text: 'Special',
-						value: 'special'
+						value: 'Special'
 					}
 				]
 			})

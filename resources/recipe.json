@@ -1,0 +1,723 @@
+
+    [
+        {
+            "recipe": [
+                "AA01",
+                "AB01",
+                "AC01"
+            ],
+            "result": [
+                "AJ01"
+            ],
+            "success": 80
+        },
+        {
+            "recipe": [
+                "AA02",
+                "AB02",
+                "AC02"
+            ],
+            "result": [
+                "AJ02"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "AA03",
+                "AB03",
+                "AC03"
+            ],
+            "result": [
+                "AJ03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "AE01",
+                "AF01",
+                "AG01"
+            ],
+            "result": [
+                "AJ01"
+            ],
+            "success": 80
+        },
+        {
+            "recipe": [
+                "AE02",
+                "AF02",
+                "AG02"
+            ],
+            "result": [
+                "AJ02"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "AE03",
+                "AF03",
+                "AG03"
+            ],
+            "result": [
+                "AJ03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "CA01",
+                "CB01",
+                "CC01"
+            ],
+            "result": [
+                "CJ01"
+            ],
+            "success": 80
+        },
+        {
+            "recipe": [
+                "CA02",
+                "CB02",
+                "CC02"
+            ],
+            "result": [
+                "CJ02"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "CA03",
+                "CB03",
+                "CC03"
+            ],
+            "result": [
+                "CJ03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "CD01",
+                "CE01",
+                "CF01"
+            ],
+            "result": [
+                "CJ01"
+            ],
+            "success": 80
+        },
+        {
+            "recipe": [
+                "CD02",
+                "CE02",
+                "CF02"
+            ],
+            "result": [
+                "CJ02"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "CD03",
+                "CE03",
+                "CF03"
+            ],
+            "result": [
+                "CJ03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "CG01",
+                "CH01",
+                "CI01"
+            ],
+            "result": [
+                "CJ01"
+            ],
+            "success": 80
+        },
+        {
+            "recipe": [
+                "CG02",
+                "CH02",
+                "CI02"
+            ],
+            "result": [
+                "CJ02"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "CG03",
+                "CH03",
+                "CI03"
+            ],
+            "result": [
+                "CJ03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "TD0F",
+                "TD0F"
+            ],
+            "result": [
+                "TB03"
+            ],
+            "success": 40
+        },
+        {
+            "recipe": [
+                "TD0F",
+                "TD0F",
+                "TD0F"
+            ],
+            "result": [
+                "TB03"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "XA01",
+                "(#soul)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA01",
+                "(#fusion soul)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "XA01",
+                "(#super soul)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "XA02",
+                "(#Flict)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA02",
+                "(#Alter)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA04",
+                "(#Sentence)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA05",
+                "(#Phrase)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA06",
+                "(#Mark)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA07",
+                "(#Factor)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA07",
+                "TG31"
+            ],
+            "result": [
+                "TG31"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "EE01",
+                "EE02",
+                "EE03",
+                "EE04",
+                "EE05"
+            ],
+            "result": [
+                "VJ01"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "VJ01",
+                "VJ01",
+                "VJ01",
+                "VJ01",
+                "EE06"
+            ],
+            "result": [
+                "EE10"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "TG01",
+                "TG02",
+                "TG03"
+            ],
+            "result": [
+                "VJ02"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "EF01",
+                "EF02"
+            ],
+            "result": [
+                "EF04"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "EF01",
+                "EF03"
+            ],
+            "result": [
+                "EF04"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "EF02",
+                "EF03"
+            ],
+            "result": [
+                "EF04"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "VJ02",
+                "VJ02",
+                "VJ02",
+                "VJ02",
+                "EF04"
+            ],
+            "result": [
+                "TG31"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "TK02",
+                "TK03",
+                "TK04",
+                "TK05",
+                "TK06"
+            ],
+            "result": [
+                "VJ03"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "TK01",
+                "EG01",
+                "EG02"
+            ],
+            "result": [
+                "VJ03"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "VJ03",
+                "VJ03",
+                "VJ03",
+                "VJ03",
+                "TJ01"
+            ],
+            "result": [
+                "TK10"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "TN01",
+                "TN02",
+                "TN04",
+                "TN05"
+            ],
+            "result": [
+                "VJ04"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "TN02",
+                "TN03",
+                "TN04",
+                "TN05"
+            ],
+            "result": [
+                "VJ04"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "TN11",
+                "TN12",
+                "TN13",
+                "TN14"
+            ],
+            "result": [
+                "TN21"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "VJ04",
+                "VJ04",
+                "VJ04",
+                "VJ04",
+                "TN21"
+            ],
+            "result": [
+                "TN22"
+            ],
+            "success": 60
+        },
+        {
+            "recipe": [
+                "EE10",
+                "TG31",
+                "TK10",
+                "TN22"
+            ],
+            "result": [
+                "EE99"
+            ],
+            "success": 10
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "#earth soul"
+            ],
+            "result": [
+                "EH01",
+                "EH02",
+                "EH03",
+                "EH04"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "#omega soul"
+            ],
+            "result": [
+                "EH01",
+                "EH02",
+                "EH03",
+                "EH04"
+            ],
+            "success": 70
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "EI01"
+            ],
+            "result": [
+                "EH01"
+            ],
+            "success": 90
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "EI02"
+            ],
+            "result": [
+                "EH02"
+            ],
+            "success": 90
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "EI03"
+            ],
+            "result": [
+                "EH03"
+            ],
+            "success": 90
+        },
+        {
+            "recipe": [
+                "#explore soul",
+                "EI04"
+            ],
+            "result": [
+                "EH04"
+            ],
+            "success": 90
+        },
+        {
+            "recipe": [
+                "LP05",
+                "LM05"
+            ],
+            "result": [
+                "LP06"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "LP05",
+                "LR05"
+            ],
+            "result": [
+                "LP07"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "LS05",
+                "LM05"
+            ],
+            "result": [
+                "LS06"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "LS05",
+                "LR05"
+            ],
+            "result": [
+                "LS07"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "LT05",
+                "LM05"
+            ],
+            "result": [
+                "LT06"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "LT05",
+                "LR05"
+            ],
+            "result": [
+                "LT07"
+            ],
+            "success": 50
+        },
+        {
+            "recipe": [
+                "XA10",
+                "(#Power)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA10",
+                "(#Shoot)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA10",
+                "(#Technique)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA10",
+                "(#Arm)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA11",
+                "(#Body)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA11",
+                "(#React)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA11",
+                "(#Mind)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA12",
+                "(#Stamina)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA12",
+                "(#Spirita)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA08",
+                "(#Catalyst)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA07",
+                "(#Mark)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA13",
+                "(#Divine)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        },
+        {
+            "recipe": [
+                "XA14",
+                "(#Exceed)"
+            ],
+            "result": [
+                "$$"
+            ],
+            "success": 100
+        }
+    ]

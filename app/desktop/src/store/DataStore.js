@@ -54,7 +54,17 @@ Ext.define("pso2affixsim.Ability", {
         "stats",
         { name:"effect", convert: description }
     ]
-});
+})
+
+Ext.define('pso2affixsim.Recipe', {
+    extend: "Ext.data.Model",
+    fields: [
+        'recipe',
+        'result', 
+        'success'
+    ]
+})
+
 
 Ext.define('pso2affixsim.store.AbilityBoost', {
     extend: 'Ext.data.Store',
@@ -149,6 +159,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     20,
                     20,
+                    0,
                     0
                 ],
                 [
@@ -157,6 +168,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     20,
                     20,
+                    0,
                     0
                 ],
                 [
@@ -165,6 +177,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     30,
                     20,
+                    0,
                     0
                 ],
                 [
@@ -173,6 +186,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     10,
                     10,
+                    0,
                     0
                 ]
             ],
@@ -183,6 +197,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     20,
                     0,
+                    0,
                     0
                 ],
                 [
@@ -190,6 +205,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     0,
                     20,
+                    0,
                     0,
                     0
                 ],
@@ -199,6 +215,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     60,
                     0,
+                    0,
                     0
                 ],
                 [
@@ -207,6 +224,7 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     0,
                     10,
                     10,
+                    0,
                     0
                 ],
                 [
@@ -295,28 +313,24 @@ Ext.define('pso2affixsim.store.AbilityBoost', {
                     30
                 ]
             ]
-        },
-        {
-            type: 'divineorder',
-            transfer: [
-                [
-                    0,
-                    0,
-                    0,
-                    0,
-                    {
-                        "max": 80,
-                        "boost": 20
-                    },
-                    {
-                        "max": 60,
-                        "boost": 20
-                    }
-                ]
-            ]
         }
     ]
 });
+
+
+Ext.define('pso2affixsim.store.Synthesis', {
+    extend: 'Ext.data.Store',
+    model: "pso2affixsim.Recipe",
+    alias:'store.synthesis',
+    proxy: {
+        type: 'ajax',
+        reader: {
+            type: 'json'
+        },
+        url: 'resources/recipe.json'
+    },
+    autoLoad: true
+})
 
 Ext.define('pso2affixsim.store.Ability', {
     extend: 'Ext.data.TreeStore',
@@ -327,7 +341,7 @@ Ext.define('pso2affixsim.store.Ability', {
         reader: 'json',
         url: 'resources/ability.json'
     }
-});
+})
 
 Ext.define("pso2affixsim.Items", {
     extend: "Ext.data.Model",
@@ -353,6 +367,63 @@ Ext.define('pso2affixsim.store.Items', {
             id: "Add Ability (HP)",
             name: "Stamina Boost",
             code: "IT01"
+        }
+    ]
+});
+
+Ext.define('pso2affixsim.store.Substitute', {
+    extend: 'Ext.data.Store',
+    alias:'store.substitute',
+    data: [
+        {
+            "substitute": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1
+            ]
+        }
+    ]
+});
+
+Ext.define('pso2affixsim.store.UpslotRates', {
+    extend: 'Ext.data.Store',
+    alias:'store.upslotrates',
+    data: [
+        {
+            "false": 100,
+            "true": 100
+        },
+        {
+            "false": 85,
+            "true": 90
+        },
+        {
+            "false": 75,
+            "true": 85
+        },
+        {
+            "false": 60,
+            "true": 70
+        },
+        {
+            "false": 50,
+            "true": 60
+        },
+        {
+            "false": 45,
+            "true": 55
+        },
+        {
+            "false": 35,
+            "true": 40
+        },
+        {
+            "false": 30,
+            "true": 30
         }
     ]
 });

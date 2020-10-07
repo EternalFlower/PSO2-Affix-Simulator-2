@@ -32,7 +32,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             sorters: [
                 {
                     sorterFn: function(record1, record2) {
-                        return record1.get("data").code.localeCompare(record2.get("data").code)
+                        return record1.get("data").get("code").localeCompare(record2.get("data").get("code"))
                     },
                     direction: 'ASC'
                 }
@@ -216,12 +216,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 if(slot == null) break
 
                 if(!abilityIdMap.has(slot.code)){
-                    abilityIdMap.set(slot.code, {
-                        data: slot,
-                        count: 1
-                    })
+                    abilityIdMap.set(slot.code, 1)
                 } else {
-                    abilityIdMap.get(slot.code).count += 1
+                    abilityIdMap.set(slot.code, abilityIdMap.get(slot.code) + 1)
                 }
 
                 if(slot.tag){
@@ -244,23 +241,27 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         abilityIdMap.forEach(function(value, key){
 
-            if(!value.data.boost) return
+            var ability = Ability_Store.findNode("code", key)
+
+            if(key[0] == '*') return
+
+            if(!ability.get('boost')) return
             
-            if (value.data.boost.tag){
-                value.data.boost.tag.forEach(function(target){
+            if (ability.get('boost').tag){
+                ability.get('boost').tag.forEach(function(target){
                     if(!boostTagGroup.has(target)){
                         boostTagGroup.set(target, new Set())
                     } 
-                    boostTagGroup.get(target).add(value.data.boost.type)
+                    boostTagGroup.get(target).add(ability.get('boost').type)
                 })
             }
             
-            if (value.data.boost.ability){
-                value.data.boost.ability.forEach(function(target){
+            if (ability.get('boost').ability){
+                ability.get('boost').ability.forEach(function(target){
                     if(!boostAbility.has(target)){
                         boostAbility.set(target, new Set())
                     } 
-                    boostAbility.get(target).add(value.data.boost.type)
+                    boostAbility.get(target).add(ability.get('boost').type)
                 })
             }
         })
@@ -269,34 +270,34 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         var abilityBoost = Ext.getStore('abilityboost')
 
-        var maxBoostFn = function (ability_data, rule){
+        var maxBoostFn = function (ability, rule){
             var finalBoost = 0
             boostTagGroup.forEach(function(value_targets, target_tag){
-                if(ability_data.tag && ability_data.tag.includes(target_tag)){
+                if(ability.get('tag') && ability.get('tag').includes(target_tag)){
                     value_targets.forEach(function(value_target){
                         var boostTypeIndex = abilityBoost.findBy(function(record, id){
                             return record.get('type') == value_target
                         })
                         if(boostTypeIndex > -1 && abilityBoost.getAt(boostTypeIndex).get(rule) != null){
-                            var boost = abilityBoost.getAt(boostTypeIndex).get(rule)[ability_data.boost_class]
-                            if(!ability_data.lvl || boost.length > ability_data.lvl){
-                                finalBoost = Math.max(boost[ability_data.lvl ? ability_data.lvl : 0], finalBoost)
+                            var boost = abilityBoost.getAt(boostTypeIndex).get(rule)[ability.get('boost_class')]
+                            if(!ability.get('lvl') || boost.length > ability.get('lvl')){
+                                finalBoost = Math.max(boost[ability.get('lvl') ? ability.get('lvl') : 0], finalBoost)
                             }
                         }
                     })
                 }      
             })
 
-            if (boostAbility.has(ability_data.code)){
-                var boost_type = boostAbility.get(ability_data.code)
+            if (boostAbility.has(ability.get('code'))){
+                var boost_type = boostAbility.get(ability.get('code'))
                 boost_type.forEach(function(type){
                     var boostTypeIndex = abilityBoost.findBy(function(record, id){
                         return record.get('type') == type
                     })
                     if(boostTypeIndex > -1 && abilityBoost.getAt(boostTypeIndex).get(rule) != null){
-                        var boost = abilityBoost.getAt(boostTypeIndex).get(rule)[ability_data.boost_class]
-                        if(!ability_data.lvl || boost.length > ability_data.lvl){
-                            finalBoost = Math.max(boost[ability_data.lvl ? ability_data.lvl : 0], finalBoost)
+                        var boost = abilityBoost.getAt(boostTypeIndex).get(rule)[ability.get('boost_class')]
+                        if(!ability.get('lvl') || boost.length > ability.get('lvl')){
+                            finalBoost = Math.max(boost[ability.get('lvl') ? ability.get('lvl') : 0], finalBoost)
                         }
                     }
                 })
@@ -315,7 +316,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 previousEntry.set("rate", previousEntry.get("rate") > rate ? previousEntry.get("rate") : rate)
             } else {
                 selectionStore.add({
-                    data: ability.getData(),
+                    data: ability,
                     rate: rate,
                     disable: false,
                     selected: false
@@ -326,24 +327,32 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var substitute = Ext.getStore('substitute')
         
         // Basic Transfer
-        abilityIdMap.forEach(function (value_ability_data, key_ability_code) {
-            var data = value_ability_data.data
-            var count = value_ability_data.count
-            if(data.rate){
+        abilityIdMap.forEach(function (count, key) {
+            var isSAF = key[0] == '*'
+            var ability = Ability_Store.findNode("code", isSAF ? key.substring(1, key.length) : key)
+            if(ability && isSAF){
+                selectionStore.add({
+                    data: ability,
+                    factor: isSAF,
+                    rate: 100,
+                    disable: false,
+                    selected: false
+                })
+            } else if(ability.get('rate')){
 
-                if(data.require && !abilityIdMap.has(data.require)) return
+                if(ability.get('require') && !abilityIdMap.has(ability.get('require'))) return
 
-                if(data.tag && data.tag.some((element) => substituteSet.has(element))){
-                    count += substitute.getAt(data.boost_class).get("substitute")[data.lvl ? data.lvl : 0]
+                if(ability.get('tag') && ability.get('tag').some((element) => substituteSet.has(element))){
+                    count += substitute.getAt(ability.get('boost_class')).get("substitute")[ability.get('lvl') ? ability.get('lvl') : 0]
                 }
                 
-                var rate = data.rate[Math.min(Math.max(count - 1, 0), data.rate.length - 1)]
+                var rate = ability.get('rate')[Math.min(Math.max(count - 1, 0), ability.get('rate').length - 1)]
 
                 if (rate == 0) return
 
-                rate = Math.min(rate + maxBoostFn(data, 'transfer'), 100)
+                rate = Math.min(rate + maxBoostFn(ability, 'transfer'), 100)
                 selectionStore.add({
-                    data: data,
+                    data: ability,
                     rate: rate,
                     disable: false,
                     selected: false
@@ -352,29 +361,31 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
 
         // Level Up
-        abilityIdMap.forEach(function (tag_data, tag) {
-            var data = tag_data.data
-            var count = tag_data.count
-            if(data.lvlup && count > 1){
+        abilityIdMap.forEach(function (count, key) {
+            if (key[0] == '*') return
 
-                if (data.require && !abilityIdMap.has(data.require)) return
+            var ability = Ability_Store.findNode("code", key)
+
+            if(ability.get('lvlup') && count > 1){
+
+                if (ability.get('require') && !abilityIdMap.has(ability.get('require'))) return
                 
-                var rate = data.generate[Math.min(Math.max(count - 2, 0), data.generate.length - 1)]
+                var rate = ability.get('generate')[Math.min(Math.max(count - 2, 0), ability.get('generate').length - 1)]
                 if(rate == 0) return
 
-                rate = Math.min(rate + maxBoostFn(data, 'create'), 100)
+                rate = Math.min(rate + maxBoostFn(ability, 'create'), 100)
 
                 var find = selectionStore.findBy(function(record, id) { 
-                    return record.get("data").code == data.lvlup 
+                    return record.get("data").code == ability.get('lvlup') 
                 })
                 if(find != -1){
                     var found = selectionStore.getAt(find)
                     if(found.get("rate") < rate)
                         found.set("rate", rate)                      
                 } else {
-                    var lvlup = Ability_Store.findNode("code", data.lvlup)
+                    var lvlup = Ability_Store.findNode("code", ability.get('lvlup'))
                     selectionStore.add({
-                        data: lvlup.data,
+                        data: lvlup,
                         rate: rate,
                         disable: false,
                         selected: false
@@ -387,14 +398,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         
         synthesisList.each(function(record){
             var materials = record.get("recipe")
-            var abilityMapCopy = new Map()
-
-            abilityIdMap.forEach(function(value, key) {
-                abilityMapCopy.set(key, {
-                    data: value.data,
-                    count: value.count
-                })
-            })
+            var abilityMapCopy = new Map(abilityIdMap)
 
             var created = true
             var capture = new Set()
@@ -415,8 +419,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                             pool.forEach(value => capture.add(value))
                         }
                     }
-                } else if(abilityMapCopy.get(material) != undefined && abilityMapCopy.get(material).count > 0){
-                    abilityMapCopy.get(material).count = abilityMapCopy.get(material).count - 1
+                } else if(abilityMapCopy.get(material) != undefined && abilityMapCopy.get(material) > 0){
+                    abilityMapCopy.set(material, abilityMapCopy.get(material) - 1)
                     if(capturing){
                         capture.add(material)
                     }
@@ -444,7 +448,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         if (this.addItem){
             selectionStore.add({
-                data: this.addItem.data,
+                data: this.addItem,
                 rate: this.addItem.get("rate"),
                 disable: false,
                 selected: false
@@ -459,8 +463,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         selectionList.each(function(record){
             if(record.get("selected")){
-                var data = record.get('data')
-                if(isNewSelect && newSelect.code != data.code && newSelect.gid == data.gid) {
+                var data = record.get('data').data
+                if(isNewSelect && newSelect.get('code') != data.code && newSelect.get('gid') == data.gid) {
                     record.set("selected", false)
                     
                 } else {

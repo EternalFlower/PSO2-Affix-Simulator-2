@@ -263,7 +263,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
     
             store.each(function (record) {
                 var boxLabelHeader = '<div style="float:left;padding-left:3px;">';
-                if(record.get('data').factor){
+                if(record.get('factor')){
                     boxLabelHeader = '<div class="x-factor-icon" style="float:left;margin-left:2px;padding-left:16px">';
                 }
                 cfg.push({
@@ -273,7 +273,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     value: record.get('selected'),
                     disabled: record.get('disable'),
                     record: record,
-                    boxLabel: boxLabelHeader + record.get('data').name+ '</div>',
+                    boxLabel: boxLabelHeader + record.get('data').get("name")+ '</div>',
                     afterBoxLabelTpl: '<span style="float:right;margin-top:8px;padding-right:3px;">' + record.get('rate') + "%</span>",
                     listeners: {
                         change: function(checkbox, newValue, oldValue, eOpts ){

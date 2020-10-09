@@ -3140,7 +3140,7 @@
                         }, 
                         {
                             "name": "Mark Couragena", 
-                            "code": "UC11", 
+                            "code": "UC02", 
                             "gid": "UC", 
                             "stats": {
                                 "satk": 40, 
@@ -3155,7 +3155,7 @@
                         }, 
                         {
                             "name": "Mark Angar", 
-                            "code": "UC21", 
+                            "code": "UC03", 
                             "gid": "UC", 
                             "stats": {
                                 "satk": 50, 
@@ -3170,7 +3170,7 @@
                         }, 
                         {
                             "name": "Mark Grif", 
-                            "code": "UC31", 
+                            "code": "UC04", 
                             "gid": "UC", 
                             "stats": {
                                 "sdef": 50, 
@@ -8072,7 +8072,6 @@
                 {
                     "name": "Meseta Fever II", 
                     "code": "VZ02", 
-                    "gid": "YA", 
                     "lvl": 2,
                     "lvlup": "VB03", 
                     "require": "XA03",
@@ -8265,12 +8264,298 @@
                     "name": "Stamina Boost",
                     "gid": "IT",
                     "code": "IT01",
-                    "rate": 100,
                     "stats": {
                         "hp": 45
                     },
                     "type": "HPPP",
                     "leaf": true
+                },
+                {
+                    "name": "Spirita Boost",
+                    "gid": "IT",
+                    "code": "IT02",
+                    "stats": {
+                        "pp": 5
+                    },
+                    "type": "HPPP",
+                    "leaf": true
+                },
+                {
+                    "name": "Power Boost",
+                    "gid": "IT",
+                    "code": "IT03",
+                    "stats": {
+                        "satk": 25
+                    },
+                    "type": "Power",
+                    "leaf": true
+                },
+                {
+                    "name": "Shoot Boost", 
+                    "code": "IT04", 
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 25
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Technique Boost", 
+                    "code": "IT05", 
+                    "gid": "IT", 
+                    "stats": {
+                        "tatk": 25
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Tenora Boost", 
+                    "code": "IT06", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 35
+                    }, 
+                    "type": "Power"
+                }, 
+                {
+                    "name": "GRM Boost", 
+                    "code": "IT07", 
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 35
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Yohmei Boost", 
+                    "code": "IT08", 
+                    "gid": "IT", 
+                    "stats": {
+                        "tatk": 35
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Noble Stamina", 
+                    "code": "IT09a", 
+                    "gid": "IT", 
+                    "stats": {
+                        "hp": 50, 
+                        "pp": 3
+                    }, 
+                    "type": "HPPP"
+                }, 
+                {
+                    "name": "Elegant Stamina", 
+                    "code": "IT09b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "hp": 70, 
+                        "pp": 4
+                    }, 
+                    "type": "HPPP"
+                }, 
+                {
+                    "name": "Grace Stamina", 
+                    "code": "IT09c", 
+                    "gid": "IT", 
+                    "stats": {
+                        "hp": 80, 
+                        "pp": 5
+                    }, 
+                    "type": "HPPP"
+                }, 
+                {
+                    "name": "Grand Stamina", 
+                    "code": "IT09d", 
+                    "gid": "IT", 
+                    "stats": {
+                        "hp": 100, 
+                        "pp": 6
+                    }, 
+                    "type": "HPPP"
+                }, 
+                {
+                    "name": "Grace Spirita", 
+                    "code": "IT10d", 
+                    "gid": "IT", 
+                    "stats": {
+                        "pp": 15
+                    }, 
+                    "type": "HPPP"
+                }, 
+                {
+                    "name": "Noble Power", 
+                    "code": "IT11a", 
+                    "gid": "IT",  
+                    "stats": {
+                        "satk": 30, 
+                        "pp": 3
+                    }, 
+                    "type": "Power"
+                }, 
+                {
+                    "name": "Elegant Power", 
+                    "code": "IT11b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 40, 
+                        "pp": 4
+                    }, 
+                    "type": "Power"
+                }, 
+                {
+                    "name": "Grace Power", 
+                    "code": "IT11c", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 50, 
+                        "pp": 5
+                    }, 
+                    "type": "Power"
+                }, 
+                {
+                    "name": "Grand Power", 
+                    "code": "IT11d", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 60, 
+                        "hp": 20, 
+                        "pp": 5
+                    }, 
+                    "type": "Power"
+                }, 
+                {
+                    "name": "Noble Shoot", 
+                    "code": "IT12a", 
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 30, 
+                        "pp": 3
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Elegant Shoot", 
+                    "code": "IT12b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 40, 
+                        "pp": 4
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Grace Shoot", 
+                    "code": "IT12c",  
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 50, 
+                        "pp": 5
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Grand Shoot", 
+                    "code": "IT12d",  
+                    "gid": "IT", 
+                    "stats": {
+                        "ratk": 60, 
+                        "hp": 20, 
+                        "pp": 5
+                    }, 
+                    "type": "Shoot"
+                }, 
+                {
+                    "name": "Noble Technique", 
+                    "code": "IT13a", 
+                    "gid": "IT", 
+                    "stats": {
+                        "tatk": 30, 
+                        "pp": 3
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Elegant Technique", 
+                    "code": "IT13b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "tatk": 40, 
+                        "pp": 4
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Grace Technique", 
+                    "code": "IT13c", 
+                    "gid": "IT",
+                    "stats": {
+                        "tatk": 50, 
+                        "pp": 5
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Grand Technique", 
+                    "code": "IT13d", 
+                    "gid": "IT", 
+                    "stats": {
+                        "tatk": 60, 
+                        "hp": 20, 
+                        "pp": 5
+                    }, 
+                    "type": "Tech"
+                }, 
+                {
+                    "name": "Offense Boost", 
+                    "code": "IT14a", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 15, 
+                        "ratk": 15, 
+                        "tatk": 15, 
+                        "dex": 25, 
+                        "pp": 1
+                    }, 
+                    "type": "Special"
+                }, 
+                {
+                    "name": "Attack Boost", 
+                    "code": "IT14b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "satk": 25, 
+                        "ratk": 25, 
+                        "tatk": 25, 
+                        "dex": 40, 
+                        "pp": 3
+                    }, 
+                    "type": "Special"
+                }, 
+                {
+                    "name": "Defense Boost", 
+                    "code": "IT15a", 
+                    "gid": "IT", 
+                    "stats": {
+                        "sdef": 25, 
+                        "rdef": 25, 
+                        "tdef": 25, 
+                        "hp": 55, 
+                        "pp": 1
+                    }
+                }, 
+                {
+                    "name": "Guard Boost", 
+                    "code": "IT15b", 
+                    "gid": "IT", 
+                    "stats": {
+                        "sdef": 35, 
+                        "rdef": 35, 
+                        "tdef": 35, 
+                        "hp": 75, 
+                        "pp": 3
+                    }
                 }
             ]
         },

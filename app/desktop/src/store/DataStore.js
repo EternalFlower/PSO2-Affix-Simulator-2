@@ -348,17 +348,22 @@ Ext.define("pso2affixsim.Items", {
     fields: [
         "code",
         "name", 
-        "id",  
-        "rate", 
-        "stats",
-        { name:"effect", convert: description }
+        "id"
     ]
 });
 
 Ext.define('pso2affixsim.store.Items', {
     extend: 'Ext.data.Store',
     alias:'store.items',
-    data: [
+    proxy: {
+        type: 'ajax',
+        reader: {
+            type: 'json'
+        },
+        url: 'resources/items.json'
+    },
+    autoLoad: true
+    /*data: [
         {
             id: "Nothing",
             code: "B01"
@@ -368,7 +373,7 @@ Ext.define('pso2affixsim.store.Items', {
             name: "Stamina Boost",
             code: "IT01"
         }
-    ]
+    ]*/
 });
 
 Ext.define('pso2affixsim.store.Substitute', {

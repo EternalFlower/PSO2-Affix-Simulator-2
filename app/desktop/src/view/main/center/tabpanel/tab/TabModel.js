@@ -411,8 +411,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                     material = material.substring(1, material.length - 1)
                 }
 
-                if(material[0] == '#'){ // Tag
-                    created = tagPool.has(material.substring(1, material.length))
+                if(material[0] == '#' && tagPool.has(material.substring(1, material.length))){ // Tag
                     if(capturing){
                         var pool = tagPool.get(material.substring(1, material.length))
                         if(pool){
@@ -447,8 +446,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
 
         if (this.addItem){
+            var ability = Ability_Store.findNode("code", this.addItem.get("code"))
             selectionStore.add({
-                data: this.addItem,
+                data: ability,
                 rate: this.addItem.get("rate"),
                 disable: false,
                 selected: false
@@ -495,9 +495,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.getStore("selection").fireEvent("DisabledCheckbox", this.getStore("selection"))
     },
     changeItemSelected: function(record){
-        var abilityList = Ext.getStore("AbilityList_Store")
-        this.addItem = abilityList.findNode("code", record.get("code"))
-        
+        this.addItem = record
         this.updateSelectionList()
     },
     updateRates: function(){
@@ -547,7 +545,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 rate = rate * upslotMuliplier / 100
             }
 
-            rate = rate + this.itemBoost + this.potentialboost + this.campaignBoost 
+            rate = Math.floor(rate + this.itemBoost + this.potentialboost + this.campaignBoost)
             
             rate = Math.min(100, rate)
             record.set("rate", rate)

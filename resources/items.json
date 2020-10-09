@@ -1,0 +1,261 @@
+[
+    {
+        "id": "Nothing",
+        "code": "B01"
+    },
+    {
+        "id": "Add Ability (HP)",
+        "code": "IT01",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (PP)",
+        "code": "IT02",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (S-ATK)",
+        "code": "IT03",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (R-ATK)",
+        "code": "IT04",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (T-ATK)",
+        "code": "IT05",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Tenora)",
+        "code": "IT06",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (GRM)",
+        "code": "IT07",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Yohmei)",
+        "code": "IT08",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (HP&PP)",
+        "code": "IT09a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (HP&PP/2)",
+        "code": "IT09b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (HP&PP/3)",
+        "code": "IT09c",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Grand HP)",
+        "code": "IT09d",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Grand PP)",
+        "code": "IT10d",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (S-ATK&PP)",
+        "code": "IT11a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (S-ATK&PP/2)",
+        "code": "IT11b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (S-ATK&PP/3)",
+        "code": "IT11c",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Grand P)",
+        "code": "IT11d",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (R-ATK&PP)",
+        "code": "IT12a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (R-ATK&PP/2)",
+        "code": "IT12b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (R-ATK&PP/3)",
+        "code": "IT12c",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Grand S)",
+        "code": "IT12d",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (T-ATK&PP)",
+        "code": "IT13a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (T-ATK&PP/2)",
+        "code": "IT13b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (T-ATK&PP/3)",
+        "code": "IT13c",
+        "rate": 100
+    },
+     {
+        "id": "Add Ability (Grand T)",
+        "code": "IT13d",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Offense Focus) ",
+        "code": "IT14a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Offense Focus/2) ",
+        "code": "IT14b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Defense Focus)",
+        "code": "IT15a",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Defense Focus/2)",
+        "code": "IT15b",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Power VI)",
+        "code": "AA06",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Shoot VI)",
+        "code": "AB06",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Technique VI)",
+        "code": "AC06",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Ability IV)",
+        "code": "AJ04",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Attack Inherit)",
+        "code": "XA10",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Defense Inherit)",
+        "code": "XA11",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Photon Inherit)",
+        "code": "XA12",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Mark Receptor)",
+        "code": "XA07",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Divine Receptor)",
+        "code": "XA13",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Catalyst Receptor)",
+        "code": "XA08",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Exceed Receptor)",
+        "code": "XA14",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Mark Joyo)",
+        "code": "UC01",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Mark Couragena)",
+        "code": "UC02",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Mark Angar)",
+        "code": "UC03",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Mark Grif)",
+        "code": "UC04",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Sentence P)",
+        "code": "YA01",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Sentence S)",
+        "code": "YA11",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Sentence T)",
+        "code": "YA21",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Ether S)",
+        "code": "EF04",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Factor C)",
+        "code": "VJ02",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Omega M)",
+        "code": "TJ01",
+        "rate": 100
+    },
+    {
+        "id": "Add Ability (Reverie C)",
+        "code": "VJ03",
+        "rate": 100
+    }
+]

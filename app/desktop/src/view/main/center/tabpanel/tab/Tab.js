@@ -163,7 +163,6 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                                         handler: function(item, event, eOpts) {
                                             var cell = this.holdInfo;
                                             if (cell) {
-                                                console.log('fire')
                                                 this.getController().fillJunk(cell.tableIndex, cell.rowIndex);
                                             }
                                             delete(this.holdInfo)
@@ -391,7 +390,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     for (var index = 0; index < stats["text"].length; index++) {
                         outputText += "<div>" + stats["text"][index] + "</div>"
                     }
-                    console.log(stats)
+                    
                     Ext.create("widget.window", {
                         title: "Details",
                         autoDestroy: true,

@@ -37,7 +37,7 @@ Ext.define('pso2affixsim.view.main.detail.DetailView', {
 			name: 'server_select',
 			simpleValue: true,
 			bind: '{server}',
-			disabled: true,
+			//disabled: true,
             items: [
                 { boxLabel: 'Japan', inputValue: 1 },
                 { boxLabel: 'Global', inputValue: 2 }

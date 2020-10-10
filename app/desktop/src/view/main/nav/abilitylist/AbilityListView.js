@@ -8,9 +8,6 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
     sortableColumns: false,
     disableSelection: true,
     cls: "x-ability",
-    requires: [
-        'pso2affixsim.store.Ability'
-    ],
     title: 'Special Ability',
     rootVisible: false,
     /*dockedItems: [{

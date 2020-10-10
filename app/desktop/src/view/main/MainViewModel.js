@@ -19,7 +19,7 @@ Ext.define('pso2affixsim.view.main.MainViewModel', {
 	},
 	constructor: function (){
 		this.callParent(arguments);
-		var local = Ext.util.LocalStorage.get('affixsim');
+		var local = Ext.util.LocalStorage.get('affixsim')
 		this.setData({
 			'color': local.getItem("base-color") ? local.getItem("base-color") : '025B80',
 			'dark_mode': local.getItem("dark-mode") ? local.getItem("dark-mode") : false,

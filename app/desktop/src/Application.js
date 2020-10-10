@@ -13,8 +13,17 @@ Ext.define('pso2affixsim.Application', {
 		elem.parentNode.removeChild(elem)
 
 		var whichView = 'mainview'
+
+		var server = Ext.util.LocalStorage.get('affixsim').getItem("server")
+
+		Ext.create('pso2affixsim.store.JPAbility', {storeId: "Ability_Store"});
+
+		if(server == "1"){
+			Ext.create('pso2affixsim.store.JPAbility', {storeId: "Ability_Store"});
+		} else {
+			Ext.create('pso2affixsim.store.GlobalAbility', {storeId: "Ability_Store"});
+		}
 		
-		Ext.create('pso2affixsim.store.Ability', {storeId: "Ability_Store"});
 		Ext.create('pso2affixsim.store.Synthesis', {storeId: "Synthesis_Store"});
 		Ext.create('pso2affixsim.store.Items', {storeId: "Item_Store"});
         Ext.create('pso2affixsim.store.BoostItems', {storeId: "BoostItem_Store"});

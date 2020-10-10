@@ -88,7 +88,7 @@ Ext.define('pso2affixsim.view.main.detail.DetailView', {
 		items: [
 			{ 
 				xtype: 'panel', 
-				html: 'Created by Skylark_Tree#1658<br>(Fleurine@Ship2)<br>'+ 'PHANTASY STAR ONLINE 2 © SEGA<br>' + 'Application version: '+ "Open Beta 1.0" + '<br>' +'Ext JS version: ' + Ext.versions.extjs.version + '<br>'
+				html: 'Created by Skylark_Tree#1658<br>(Fleurine@Ship2)<br>'+ 'PHANTASY STAR ONLINE 2 © SEGA<br>' + 'Application version: '+ "Open Beta 1.0" + '<br>' +'Ext JS version: ' + Ext.versions.extjs.version + ' GPL<br>' + '<a href="https://github.com/EternalFlower/PSO2-Affix-Simulator-2">GitHub</a>'
 			}
 		]
 	}]  

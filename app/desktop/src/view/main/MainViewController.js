@@ -64,6 +64,11 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
 
     tabPanel.setActiveTab(tab);
   },
+  makeActiveTabValid: function() {
+    var tabPanel = this.lookupReference('tabpanel'),
+        tab = tabPanel.getActiveTab(tab)
+        if(tab != null) tab.makeTabValid()
+  },
 
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();

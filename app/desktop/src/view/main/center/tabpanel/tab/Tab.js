@@ -143,17 +143,35 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     },
                     cellcontextmenu: function( table, td, cellIndex, record, tr, rowIndex, event, eOpts ){
                         event.stopEvent();
+                        this.holdInfo = {
+                            tableIndex: index,
+                            rowIndex: rowIndex
+                        }
                         if(record.get('slot') != null){
-                            this.holdInfo = {
-                                tableIndex: index,
-                                rowIndex: rowIndex
-                            }
                             if (record.get('slot').factor !== true) {
                                 this.contextMenu.items.getAt(0).setText(this.factorMenuText.on)
                             } else {
                                 this.contextMenu.items.getAt(0).setText(this.factorMenuText.off)
                             }
                             this.contextMenu.showAt(event.getXY())
+                        } else {
+                            var menu = Ext.create("Ext.menu.Menu", {
+                                items: [
+                                    {
+                                        text: "Fill up to slot " + String(rowIndex + 1),
+                                        scope: this,
+                                        handler: function(item, event, eOpts) {
+                                            var cell = this.holdInfo;
+                                            if (cell) {
+                                                console.log('fire')
+                                                this.getController().fillJunk(cell.tableIndex, cell.rowIndex);
+                                            }
+                                            delete(this.holdInfo)
+                                        }
+                                    }
+                                ]
+                            })
+                            menu.showAt(event.getXY())
                         }
                     }
                 }
@@ -198,11 +216,11 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
         })
 
-        var vm = this.getViewModel();
-        var controller = this.getController();
+        var vm = this.getViewModel()
+        var controller = this.getController()
 
         var itemboost = Ext.create("Ext.form.field.ComboBox", {
-            store: Ext.getStore("boostitem"),
+            store: Ext.getStore("BoostItem_Store"),
             padding: "5 5 0 5",
             displayField: "id",
             forceSelection: true,
@@ -218,7 +236,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         })
 
         var additem = Ext.create("Ext.form.field.ComboBox", {
-            store: Ext.getStore("item"),
+            store: Ext.getStore("Item_Store"),
             padding: "5 5 0 5",
             displayField: "id",
             forceSelection: true,
@@ -233,7 +251,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         })
 
         var potentialboost = Ext.create("Ext.form.field.ComboBox", {
-            store: Ext.getStore("boostpotential"),
+            store: Ext.getStore("BoostPotential_Store"),
             padding: "5 5 0 5",
             displayField: "id",
             forceSelection: true,
@@ -370,7 +388,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                         }
                     }
 
-                    for (var index = 0; index < stats["text"]; index++) {
+                    for (var index = 0; index < stats["text"].length; index++) {
                         outputText += "<div>" + stats["text"][index] + "</div>"
                     }
                     console.log(stats)
@@ -442,5 +460,8 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             items: panels
         });
         this.add(panel);
+    },
+    makeTabValid(){
+        this.getController().makeTabValid()
     }
-});
+})

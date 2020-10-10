@@ -51,7 +51,7 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
         ]
     }],*/
     bind: {
-        store: "AbilityList_Store"
+        store: "Ability_Store"
     },
     tools: [{
         type: 'plus',

@@ -52,5 +52,11 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     },
     getStats: function () {
         return this.getViewModel().getResultStats();
+    },
+    fillJunk: function(tableIndex, rowIndex){
+        this.getViewModel().fillJunk(tableIndex, rowIndex);
+    },
+    makeTabValid: function(){
+        this.getViewModel().makeTabValid();
     }
 });

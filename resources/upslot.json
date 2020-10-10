@@ -1,0 +1,34 @@
+[
+    {
+        "false": 100,
+        "true": 100
+    },
+    {
+        "false": 85,
+        "true": 90
+    },
+    {
+        "false": 75,
+        "true": 85
+    },
+    {
+        "false": 60,
+        "true": 70
+    },
+    {
+        "false": 50,
+        "true": 60
+    },
+    {
+        "false": 45,
+        "true": 55
+    },
+    {
+        "false": 35,
+        "true": 40
+    },
+    {
+        "false": 30,
+        "true": 30
+    }
+]

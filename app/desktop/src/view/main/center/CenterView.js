@@ -9,7 +9,7 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			xtype: 'button',
 			icon: null,
 			text: "Add Panel",
-			glyph: 43,
+			iconCls: 'x-fa fa-plus',
 			listeners: {
 				click: 'onAddTabClick'
 			},
@@ -18,8 +18,29 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 		{
 			xtype: 'button',
 			icon: null,
-			text: "Save Panel",
+			text: "Make Active Tab Valid",
+			iconCls: 'x-fa fa-check',
+			listeners: {
+				click: 'makeActiveTabValid'
+			},
+			tooltip: "Add fillers to make active tab valid"
+		},
+		{
+			xtype: 'button',
+			icon: null,
+			text: "Save",
 			iconCls: 'x-fa fa-save',
+			style: {
+				pointerEvents: 'all'
+			},
+			tooltip: "Not available",
+			disabled: true
+		},
+		{
+			xtype: 'button',
+			icon: null,
+			text: "Load",
+			iconCls: 'x-fa fa-download',
 			style: {
 				pointerEvents: 'all'
 			},

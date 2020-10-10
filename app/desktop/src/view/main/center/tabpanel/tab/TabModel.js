@@ -120,13 +120,48 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         if(index == slotCount - 1){
             store.getAt(index).set("slot", null)
         } else {
-            for(var entry = index; index <  slotCount; entry++){
+            for(var entry = index; entry <  slotCount; entry++){
                 store.getAt(entry).set("slot", store.getAt(entry + 1).get("slot"))
                 store.getAt(entry + 1).set("slot", null)
             }
         }
 
         this.updateSelectionList()
+    },
+    fillJunk: function(tableIndex, index){
+        var Ability_Store = Ext.getStore("Ability_Store")
+        var panel = this.get('panels')[tableIndex]
+
+        for(var i = 0; i <= index; i++){
+            var filler = 1
+            var data = panel.getAt(i).get("slot")
+
+            if(data == null){
+                for(var j = 1; j <= 9; j++){
+                    var junkCode = "ZA0" + String(filler)
+                    var exist = panel.findBy(function(record){
+                        return record.get("slot") != null && record.get("slot").code == junkCode
+                    })
+                    if(exist == -1){
+                        var junk = Ability_Store.findNode("code", junkCode)
+                        panel.getAt(i).set("slot", junk.getData())
+                        break
+                    }
+                    filler += 1
+                }
+            }
+        }
+        
+        this.updateSelectionList()
+    },
+    makeTabValid: function(){
+        var base = this.get('panels')[0]
+        var requireCount = base.getAbilityCount() - 1
+        if (requireCount < 0) return
+        for(var i = 1; i < 6; i++){
+            if(this.get('panels')[i].getAbilityCount() == 0) continue
+            this.fillJunk(i, requireCount)
+        }
     },
     makeFactor:function(tableIndex, index, isFactor){
         var store = this.get('panels')[tableIndex]
@@ -185,7 +220,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         
         this.set("totalRate", this.const_emptyText)
 
-        var Ability_Store = Ext.getStore("AbilityList_Store")
+        var Ability_Store = Ext.getStore("Ability_Store")
         var selectionStore = this.getStore("selection")
         
         this.getStore("result").removeAll()
@@ -266,9 +301,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
         })
 
-        console.log('hit me')
-
-        var abilityBoost = Ext.getStore('abilityboost')
+        var abilityBoost = Ext.getStore('AbilityBoost_Store')
 
         var maxBoostFn = function (ability, rule){
             var finalBoost = 0
@@ -324,7 +357,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
         }
 
-        var substitute = Ext.getStore('substitute')
+        var substitute = Ext.getStore("Substitute_Store")
         
         // Basic Transfer
         abilityIdMap.forEach(function (count, key) {
@@ -464,7 +497,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         selectionList.each(function(record){
             if(record.get("selected")){
                 var data = record.get('data').data
-                if(isNewSelect && newSelect.get('code') != data.code && newSelect.get('gid') == data.gid) {
+                if(isNewSelect && newSelect.get('code') != data.code && newSelect.get('gid') != null && newSelect.get('gid') == data.gid) {
                     record.set("selected", false)
                     
                 } else {
@@ -499,9 +532,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.updateSelectionList()
     },
     updateRates: function(){
-        var abilityList = Ext.getStore("AbilityList_Store")
-        var itemList = Ext.getStore('item')
-        var upslotRates = Ext.getStore('upslotrates')
+        var abilityList = Ext.getStore("Ability_Store")
+        var itemList = Ext.getStore("Item_Store")
+        var upslotRates = Ext.getStore("Upslot_Store")
         var isUpslotting = this.get("panels")[0].getAbilityCount() + 1 == this.getStore("result").getCount()
         var sameItemMultiplier = 1
         var materialUsed = 0

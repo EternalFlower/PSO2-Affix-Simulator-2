@@ -69,252 +69,14 @@ Ext.define('pso2affixsim.Recipe', {
 Ext.define('pso2affixsim.store.AbilityBoost', {
     extend: 'Ext.data.Store',
     alias:'store.abilityboost',
-    data: [
-        {
-            type: "photon",
-            create: [
-                [],
-                [
-                    0,
-                    0,
-                    0,
-                    100,
-                    70,
-                    50
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    100,
-                    70,
-                    50
-                ]
-            ]
+    proxy: {
+        "type": 'ajax',
+        reader: {
+            "type": 'json'
         },
-        {
-            type: 'mutation1',
-            create: [
-                [
-                    0,
-                    0,
-                    0,
-                    30,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    30,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    40,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
-            type: 'mutation2',
-            create: [
-                [
-                    0,
-                    0,
-                    0,
-                    40,
-                    30,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    40,
-                    30,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    50,
-                    30,
-                    0
-                ]
-            ]
-        },
-        {
-            type: 'soul',
-            create: [
-                [
-                    0,
-                    0,
-                    0,
-                    20,
-                    20,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    20,
-                    20,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    30,
-                    20,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    10,
-                    10,
-                    0,
-                    0
-                ]
-            ],
-            transfer: [
-                [
-                    0,
-                    0,
-                    0,
-                    20,
-                    0,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    20,
-                    0,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    60,
-                    0,
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    10,
-                    10,
-                    0,
-                    0
-                ],
-                [
-                    20
-                ],
-                [
-                    10
-                ]
-            ]
-        },
-        {
-            type: 'doom1',
-            create: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    20
-                ]
-            ],
-            transfer: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    20
-                ]
-            ]
-        },
-        {
-            type: 'doom2',
-            create: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    30
-                ]
-            ],
-            transfer: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    30
-                ]
-            ]
-        },
-        {
-            type: 'doom3',
-            create: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    40
-                ]
-            ],
-            transfer: [
-                [],[],[],
-                [
-                    0,
-                    0,
-                    0,
-                    40
-                ]
-            ]
-        },
-        {
-            type: 'divinewill',
-            transfer: [
-                [
-                    20
-                ]
-            ]
-        },
-        {
-            type: 'divineorder',
-            transfer: [
-                [
-                    30
-                ]
-            ]
-        }
-    ]
+        url: 'resources/abilityboost.json'
+    },
+    autoLoad: true
 });
 
 
@@ -323,9 +85,9 @@ Ext.define('pso2affixsim.store.Synthesis', {
     model: "pso2affixsim.Recipe",
     alias:'store.synthesis',
     proxy: {
-        type: 'ajax',
+        "type": 'ajax',
         reader: {
-            type: 'json'
+            "type": 'json'
         },
         url: 'resources/recipe.json'
     },
@@ -337,7 +99,7 @@ Ext.define('pso2affixsim.store.Ability', {
     model: "pso2affixsim.Ability",
     alias: 'store.ability',
     proxy: {
-        type: 'ajax',
+        "type": 'ajax',
         reader: 'json',
         url: 'resources/ability.json'
     }
@@ -356,79 +118,37 @@ Ext.define('pso2affixsim.store.Items', {
     extend: 'Ext.data.Store',
     alias:'store.items',
     proxy: {
-        type: 'ajax',
+        "type": 'ajax',
         reader: {
-            type: 'json'
+            "type": 'json'
         },
         url: 'resources/items.json'
     },
     autoLoad: true
-    /*data: [
-        {
-            id: "Nothing",
-            code: "B01"
-        },
-        {
-            id: "Add Ability (HP)",
-            name: "Stamina Boost",
-            code: "IT01"
-        }
-    ]*/
 });
 
 Ext.define('pso2affixsim.store.Substitute', {
     extend: 'Ext.data.Store',
     alias:'store.substitute',
-    data: [
-        {
-            "substitute": [
-                0,
-                0,
-                0,
-                0,
-                1,
-                1,
-                1
-            ]
-        }
-    ]
+    proxy: {
+        "type": 'ajax',
+        reader: {
+            "type": 'json'
+        },
+        url: 'resources/substitute.json'
+    },
+    autoLoad: true
 });
 
 Ext.define('pso2affixsim.store.UpslotRates', {
     extend: 'Ext.data.Store',
     alias:'store.upslotrates',
-    data: [
-        {
-            "false": 100,
-            "true": 100
+    proxy: {
+        "type": 'ajax',
+        reader: {
+            "type": 'json'
         },
-        {
-            "false": 85,
-            "true": 90
-        },
-        {
-            "false": 75,
-            "true": 85
-        },
-        {
-            "false": 60,
-            "true": 70
-        },
-        {
-            "false": 50,
-            "true": 60
-        },
-        {
-            "false": 45,
-            "true": 55
-        },
-        {
-            "false": 35,
-            "true": 40
-        },
-        {
-            "false": 30,
-            "true": 30
-        }
-    ]
+        url: 'resources/upslot.json'
+    },
+    autoLoad: true
 });

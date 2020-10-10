@@ -2113,7 +2113,7 @@
                     ]
                 },
                 {
-                    "name": "Vinc., Mod., ARKS Max",
+                    "name": "All Attack",
                     "children":[
                         {
                             "name": "Vinculum", 
@@ -3452,7 +3452,7 @@
                                 100
                             ], 
                             "stats": {
-                                "text": "Boosts damage inflicted to enemies<br>affected by Jellen by 5%."
+                                "text": "Boosts damage inflicted to enemies affected by Jellen by 5%."
                             },  
                             "tag": [
                                 "Phrase"
@@ -3516,7 +3516,7 @@
                                 100
                             ], 
                             "stats": {
-                                "text": "+5% damage against enemies<BR>with Status Effects"
+                                "text": "+5% damage against enemies with Status Effects"
                             },  
                             "tag": [
                                 "Phrase"
@@ -3538,7 +3538,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Lightning.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Lightning. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3552,7 +3552,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Fire.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Fire. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3566,7 +3566,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Ice.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Ice. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3580,7 +3580,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Wind.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Wind. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3594,7 +3594,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Light.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Light. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3608,7 +3608,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against enemies weak to Dark.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against enemies weak to Dark. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3627,7 +3627,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Lillipa Mechs.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Lillipa Mechs. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3641,7 +3641,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Naberius Natives.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Naberius Natives. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3655,7 +3655,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Wopal Oceanids.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Wopal Oceanids. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3669,7 +3669,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Kuronites.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Kuronites. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3683,7 +3683,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Phantoms.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Phantoms. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3697,7 +3697,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Darkers.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Darkers. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3711,7 +3711,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Dragonkin.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Dragonkin. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -3725,7 +3725,7 @@
                                 20
                             ], 
                             "stats": {
-                                "text": "Boost damage against Luminmech.<br>Effect is reduced<br>as the Weapon<br>Rarity increases."
+                                "text": "Boost damage against Luminmech. Effect is reduced as the Weapon Rarity increases."
                             },
                             "type": "Special",
                             "leaf": true
@@ -8237,7 +8237,7 @@
                         80
                     ], 
                     "stats": {
-                        "text": "Boosts Special Ability<br>transfer success rate onto this item<br>by 5%."
+                        "text": "Boosts Special Ability transfer success rate onto this item by 5%."
                     }, 
                     "type": "Special",
                     "leaf": true
@@ -8575,7 +8575,7 @@
                 }, 
                 {
                     "name": "Junk B", 
-                    "code": "ZB01", 
+                    "code": "ZA02", 
                     "rate": [
                         100
                     ], 
@@ -8586,7 +8586,7 @@
                 }, 
                 {
                     "name": "Junk C", 
-                    "code": "ZC01", 
+                    "code": "ZA03", 
                     "rate": [
                         100
                     ], 
@@ -8597,7 +8597,7 @@
                 }, 
                 {
                     "name": "Junk D", 
-                    "code": "ZD01", 
+                    "code": "ZA04", 
                     "rate": [
                         100
                     ], 
@@ -8608,7 +8608,7 @@
                 }, 
                 {
                     "name": "Junk E", 
-                    "code": "ZE01", 
+                    "code": "ZA05", 
                     "rate": [
                         100
                     ], 
@@ -8619,7 +8619,7 @@
                 }, 
                 {
                     "name": "Junk F", 
-                    "code": "ZF01", 
+                    "code": "ZA06", 
                     "rate": [
                         100
                     ], 
@@ -8630,7 +8630,7 @@
                 }, 
                 {
                     "name": "Junk G", 
-                    "code": "ZG01", 
+                    "code": "ZA07", 
                     "rate": [
                         100
                     ], 
@@ -8641,7 +8641,7 @@
                 }, 
                 {
                     "name": "Junk H", 
-                    "code": "ZH01",  
+                    "code": "ZA08",  
                     "rate": [
                         100
                     ], 
@@ -8652,7 +8652,7 @@
                 }, 
                 {
                     "name": "Junk I", 
-                    "code": "ZI01", 
+                    "code": "ZA09", 
                     "rate": [
                         100
                     ], 

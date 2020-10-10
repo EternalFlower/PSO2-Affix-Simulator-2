@@ -37,7 +37,6 @@ Ext.define('pso2affixsim.view.main.detail.DetailView', {
 			name: 'server_select',
 			simpleValue: true,
 			bind: '{server}',
-			//disabled: true,
             items: [
                 { boxLabel: 'Japan', inputValue: 1 },
                 { boxLabel: 'Global', inputValue: 2 }
@@ -45,7 +44,18 @@ Ext.define('pso2affixsim.view.main.detail.DetailView', {
 			listeners: {
 				change: 'changeServer'
 			}
-        },
+		},
+		{
+			xtype: 'button',
+			text: "Reload",
+			iconCls: 'x-fa fa-redo',
+			listeners: {
+				click: function() {
+					location.reload()
+				}
+			},
+			tooltip: "Reload the page to change server"
+		},
 		{
             xtype: 'radiogroup',
             fieldLabel: 'Language:',
@@ -58,6 +68,28 @@ Ext.define('pso2affixsim.view.main.detail.DetailView', {
 			listeners: {
 				change: 'changeLanguage'
 			}
-        }
-	]
+        },
+		{
+			xtype: 'button',
+			text: "Changelog",
+			iconCls: 'x-fa fa-list',
+			listeners: {
+				click: function() {
+					
+				}
+			}
+		}
+	],
+	dockedItems: [{
+		xtype: 'toolbar',
+		dock: 'bottom',
+		ui: 'footer',
+		fixed: true,
+		items: [
+			{ 
+				xtype: 'panel', 
+				html: 'Created by Skylark_Tree#1658<br>(Fleurine@Ship2)<br>'+ 'PHANTASY STAR ONLINE 2 © SEGA<br>' + 'Ext JS version: ' + Ext.versions.extjs.version + '<br>'
+			}
+		]
+	}]  
 });

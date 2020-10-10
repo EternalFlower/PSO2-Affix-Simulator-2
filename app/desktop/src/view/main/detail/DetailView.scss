@@ -1,6 +1,7 @@
 .detailview { 
     color: $color;
     background-color: white;
+    background-color:var(--reverse-color);
     padding: 10px;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.4);
 }

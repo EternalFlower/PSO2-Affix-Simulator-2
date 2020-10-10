@@ -10,43 +10,8 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
     cls: "x-ability",
     title: 'Special Ability',
     rootVisible: false,
-    /*dockedItems: [{
-        xtype: 'toolbar',
-        dock: 'top',
-        height: 44,
-        layout: {
-            type: 'hbox',
-            align: 'stretch'
-        },
-        items: [
-            Ext.create("Ext.form.field.ComboBox", {
-                store: Ext.create("Ext.data.JsonStore", {
-                    autoLoad: false,
-                    fields: ["T", "V"],
-                    data: [{
-                        T: "Name",
-                        V: 'name'
-                    }, {
-                        T: "Effect",
-                        V: "effect"
-                    }]
-
-                }),
-                displayField: "T",
-                forceSelection: true,
-                editable: false,
-                queryMode: "local",
-                valueField: "V",
-                value: 'name',
-                width: 100
-            }),
-            {
-                xtype: 'textfield',
-                name: 'filter',
-                flex: 1
-            }
-        ]
-    }],*/
+    filterSetting: 'name',
+    filterValue: '',
     bind: {
         store: "Ability_Store"
     },
@@ -104,5 +69,68 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                 };
             }
         }
+    },
+    initComponent(){
+        var panel = this
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            height: 44,
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    'xtype': 'combobox',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ["T", "V"],
+                        data: [{
+                            T: "Name",
+                            V: 'name'
+                        }, {
+                            T: "Effect",
+                            V: "effect"
+                        }]
+                    }),
+                    displayField: "T",
+                    forceSelection: true,
+                    editable: false,
+                    queryMode: "local",
+                    valueField: "V",
+                    value: 'name',
+                    width: 150,
+                    listeners: {
+                        change: function(combobox, newValue, prevValue) {
+                            panel.filterSetting = newValue;
+                            panel.store.clearFilter();
+                            var filterValue = panel.filterValue;
+                            if (filterValue.length != 0) {
+                                var re = new RegExp(filterValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+                                panel.store.filter(panel.filterSetting, re)
+                                panel.expandAll()
+                            }
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'filter',
+                    flex: 1,
+                    listeners: {
+                        change: function(fld, newValue, oldValue, opts) {
+                            panel.store.clearFilter();
+                            panel.filterValue = newValue;
+                            if (newValue.length != 0) {
+                                var re = new RegExp(newValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+                                panel.store.filter(panel.filterSetting, re)
+                                panel.expandAll()
+                            }
+                        }
+                    }
+                }
+            ]
+        }]
+        this.callParent()
     }
 });

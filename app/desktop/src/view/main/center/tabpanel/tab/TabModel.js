@@ -563,6 +563,11 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var totalRate = 100
         this.getStore("result").each(function(record){
             var rate = record.get("baserate")
+            
+            rate = Math.floor(rate * sameItemMultiplier)
+            if(!record.get("noEx")){
+                rate = rate * upslotMuliplier / 100
+            }
 
             if(record.get("gid") == "item"){
                 var item = itemList.findRecord("name", record.get("name"))
@@ -571,11 +576,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 }
             } else if(abilityList.findNode("name", record.get("name")).get("type") == this.groupBoost.type){
                 rate = rate + this.groupBoost.boost
-            }
-
-            rate = Math.floor(rate * sameItemMultiplier)
-            if(!record.get("noEx")){
-                rate = rate * upslotMuliplier / 100
             }
 
             rate = Math.floor(rate + this.itemBoost + this.potentialboost + this.campaignBoost)

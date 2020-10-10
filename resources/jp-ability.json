@@ -8297,7 +8297,8 @@
                     "stats": {
                         "ratk": 25
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Technique Boost", 
@@ -8306,7 +8307,8 @@
                     "stats": {
                         "tatk": 25
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Tenora Boost", 
@@ -8315,7 +8317,8 @@
                     "stats": {
                         "satk": 35
                     }, 
-                    "type": "Power"
+                    "type": "Power",
+                    "leaf": true
                 }, 
                 {
                     "name": "GRM Boost", 
@@ -8324,7 +8327,8 @@
                     "stats": {
                         "ratk": 35
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Yohmei Boost", 
@@ -8333,7 +8337,8 @@
                     "stats": {
                         "tatk": 35
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Noble Stamina", 
@@ -8343,7 +8348,8 @@
                         "hp": 50, 
                         "pp": 3
                     }, 
-                    "type": "HPPP"
+                    "type": "HPPP",
+                    "leaf": true
                 }, 
                 {
                     "name": "Elegant Stamina", 
@@ -8353,7 +8359,8 @@
                         "hp": 70, 
                         "pp": 4
                     }, 
-                    "type": "HPPP"
+                    "type": "HPPP",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grace Stamina", 
@@ -8363,7 +8370,8 @@
                         "hp": 80, 
                         "pp": 5
                     }, 
-                    "type": "HPPP"
+                    "type": "HPPP",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grand Stamina", 
@@ -8373,7 +8381,8 @@
                         "hp": 100, 
                         "pp": 6
                     }, 
-                    "type": "HPPP"
+                    "type": "HPPP",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grace Spirita", 
@@ -8382,7 +8391,8 @@
                     "stats": {
                         "pp": 15
                     }, 
-                    "type": "HPPP"
+                    "type": "HPPP",
+                    "leaf": true
                 }, 
                 {
                     "name": "Noble Power", 
@@ -8392,7 +8402,8 @@
                         "satk": 30, 
                         "pp": 3
                     }, 
-                    "type": "Power"
+                    "type": "Power",
+                    "leaf": true
                 }, 
                 {
                     "name": "Elegant Power", 
@@ -8402,7 +8413,8 @@
                         "satk": 40, 
                         "pp": 4
                     }, 
-                    "type": "Power"
+                    "type": "Power",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grace Power", 
@@ -8412,7 +8424,8 @@
                         "satk": 50, 
                         "pp": 5
                     }, 
-                    "type": "Power"
+                    "type": "Power",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grand Power", 
@@ -8423,7 +8436,8 @@
                         "hp": 20, 
                         "pp": 5
                     }, 
-                    "type": "Power"
+                    "type": "Power",
+                    "leaf": true
                 }, 
                 {
                     "name": "Noble Shoot", 
@@ -8433,7 +8447,8 @@
                         "ratk": 30, 
                         "pp": 3
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Elegant Shoot", 
@@ -8443,7 +8458,8 @@
                         "ratk": 40, 
                         "pp": 4
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grace Shoot", 
@@ -8453,7 +8469,8 @@
                         "ratk": 50, 
                         "pp": 5
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grand Shoot", 
@@ -8464,7 +8481,8 @@
                         "hp": 20, 
                         "pp": 5
                     }, 
-                    "type": "Shoot"
+                    "type": "Shoot",
+                    "leaf": true
                 }, 
                 {
                     "name": "Noble Technique", 
@@ -8474,7 +8492,8 @@
                         "tatk": 30, 
                         "pp": 3
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Elegant Technique", 
@@ -8484,7 +8503,8 @@
                         "tatk": 40, 
                         "pp": 4
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grace Technique", 
@@ -8494,7 +8514,8 @@
                         "tatk": 50, 
                         "pp": 5
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Grand Technique", 
@@ -8505,7 +8526,8 @@
                         "hp": 20, 
                         "pp": 5
                     }, 
-                    "type": "Tech"
+                    "type": "Tech",
+                    "leaf": true
                 }, 
                 {
                     "name": "Offense Boost", 
@@ -8518,7 +8540,8 @@
                         "dex": 25, 
                         "pp": 1
                     }, 
-                    "type": "Special"
+                    "type": "Special",
+                    "leaf": true
                 }, 
                 {
                     "name": "Attack Boost", 
@@ -8531,7 +8554,8 @@
                         "dex": 40, 
                         "pp": 3
                     }, 
-                    "type": "Special"
+                    "type": "Special",
+                    "leaf": true
                 }, 
                 {
                     "name": "Defense Boost", 
@@ -8543,7 +8567,8 @@
                         "tdef": 25, 
                         "hp": 55, 
                         "pp": 1
-                    }
+                    },
+                    "leaf": true
                 }, 
                 {
                     "name": "Guard Boost", 
@@ -8555,7 +8580,8 @@
                         "tdef": 35, 
                         "hp": 75, 
                         "pp": 3
-                    }
+                    },
+                    "leaf": true
                 }
             ]
         },

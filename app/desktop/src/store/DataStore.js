@@ -97,23 +97,23 @@ Ext.define('pso2affixsim.store.Synthesis', {
 Ext.define('pso2affixsim.store.JPAbility', {
     extend: 'Ext.data.TreeStore',
     model: "pso2affixsim.Ability",
-    alias: 'store.ability',
     proxy: {
         "type": 'ajax',
         reader: 'json',
         url: 'resources/jp-ability.json'
-    }
+    },
+    filterer: 'bottomup'
 })
 
 Ext.define('pso2affixsim.store.GlobalAbility', {
     extend: 'Ext.data.TreeStore',
     model: "pso2affixsim.Ability",
-    alias: 'store.ability',
     proxy: {
         "type": 'ajax',
         reader: 'json',
         url: 'resources/global-ability.json'
-    }
+    },
+    filterer: 'bottomup'
 })
 
 Ext.define("pso2affixsim.Items", {

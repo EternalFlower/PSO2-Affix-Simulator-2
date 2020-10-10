@@ -4,8 +4,6 @@
 	color: $base-color; 
 	font-size: 24px;
 	
-	//background-size: 20px 20px;
-  	//background-color: #e8e8e8;
-
-  	background-color: white;
+	background-color: white;
+	background-color: var(--reverse-color)
 }

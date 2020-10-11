@@ -20,7 +20,7 @@ Ext.define('pso2affixsim.Application', {
 
 		if(server == "1"){
 			abilityStore = 'pso2affixsim.store.JPAbility'
-		} else {
+		} else if (server == "2"){
 			abilityStore = 'pso2affixsim.store.GlobalAbility'
 		}
 		Ext.create(abilityStore, {storeId: "Ability_Store"});

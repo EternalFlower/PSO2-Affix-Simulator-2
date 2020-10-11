@@ -387,8 +387,10 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                         }
                     }
 
-                    for (var index = 0; index < stats["text"].length; index++) {
-                        outputText += "<div>" + stats["text"][index] + "</div>"
+                    if(stats["text"] != null){
+                        for (var index = 0; index < stats["text"].length; index++) {
+                            outputText += "<div>" + stats["text"][index] + "</div>"
+                        }
                     }
                     
                     Ext.create("widget.window", {

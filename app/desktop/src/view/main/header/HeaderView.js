@@ -16,7 +16,7 @@ Ext.define('pso2affixsim.view.main.header.HeaderView', {
     '->',
     {
       reference: 'detailtoggle',
-      iconCls:'x-fa fa-arrow-left',
+      iconCls:'x-fa fa-cog',
       tooltip: 'Settings',
       handler: 'onHeaderViewDetailToggle'
     }

@@ -73,12 +73,5 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();
     vm.set('detailCollapsed', !vm.get('detailCollapsed'));
-    var detailtoggle = this.lookup('detailtoggle');
-    if(vm.get('detailCollapsed') === true) {
-      detailtoggle.setIconCls('x-fa fa-arrow-left')
-    }
-    else {
-      detailtoggle.setIconCls('x-fa fa-arrow-right')
-    }
   }
 });

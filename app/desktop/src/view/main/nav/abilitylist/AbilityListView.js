@@ -67,6 +67,15 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                     var rec = treeview.getRecord(e.getTarget(treeview.itemSelector));
                     return rec.isLeaf();
                 };
+            },
+            itemclick: function(view, node) {
+                if(node.isLeaf()) {
+                    
+                } else if(node.isExpanded()) {
+                    node.collapse();
+                } else {
+                    node.expand();
+                }
             }
         }
     },

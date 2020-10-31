@@ -9,7 +9,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     alias: 'viewmodel.tabviewmodel',
 
     const_MaxFodder: 6,
-    const_MaxSlot: 9,
+    const_MaxSlot: 8,
     const_emptyText: "&nbsp",
 
     addItem: null,
@@ -24,6 +24,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     data: {
         title: "Synthesis Panel",
         panels: [],
+        saf: [],
         totalRate: "&nbsp",
         itemEnabled: false
     },
@@ -74,6 +75,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 slot: null
             })
         }
+        var safStore = [
+            {
+                id: "slot" + count,
+                name: "Slot " + count,
+                slot: null
+            }
+        ]
         var store = Ext.create("Ext.data.Store", {
             model: "PSO2.Slot",
             data: constBaseSlot,
@@ -89,7 +97,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 return this.getAbilityCount() != 0
             }
         })
+
+        var saf = Ext.create("Ext.data.Store", {
+            model: "PSO2.Slot",
+            data: safStore
+        })
         this.get('panels').push(store)
+        this.get('saf').push(saf)
     },
     renameTab: function(name){
         this.setData({
@@ -128,6 +142,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.updateSelectionList()
     },
+    addFactor:function(tableIndex, data){
+        this.get("saf")[tableIndex].getAt(0).set("slot", data)
+        this.updateSelectionList()
+    },
+    removeFactor:function(tableIndex){
+        this.get("saf")[tableIndex].getAt(0).set("slot", null)
+        this.updateSelectionList()
+    },
     fillJunk: function(tableIndex, index){
         var Ability_Store = Ext.getStore("Ability_Store")
         var panel = this.get('panels')[tableIndex]
@@ -137,7 +159,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             var data = panel.getAt(i).get("slot")
 
             if(data == null){
-                for(var j = 1; j <= 9; j++){
+                for(var j = 1; j <= 8; j++){
                     var junkCode = "ZA0" + String(filler)
                     var exist = panel.findBy(function(record){
                         return record.get("slot") != null && record.get("slot").code == junkCode
@@ -162,28 +184,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             if(this.get('panels')[i].getAbilityCount() == 0) continue
             this.fillJunk(i, requireCount)
         }
-    },
-    makeFactor:function(tableIndex, index, isFactor){
-        var store = this.get('panels')[tableIndex]
-        var data = store.getAt(index).get("slot")
-
-        var node
-        if (isFactor == true) {
-            node = Ext.applyIf({
-                source: data,
-                factor: true,
-                rate: [100],
-                generate: null
-            }, data)
-            node.code = "*" + data.code
-        } else {
-            node = data.source
-            delete data
-        }
-
-        store.getAt(index).set("slot", node)
-
-        this.updateSelectionList()
     },
     swapAbility: function(fodder, indexDrag, indexDrop){
         var store = this.get("panels")[fodder]
@@ -232,6 +232,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var abilityIdMap = new Map()
         var tagPool = new Map()
         var substituteSet = new Set()
+        var safSet = new Set()
         
 
         for(var i = 0; i < this.const_MaxFodder; i++){
@@ -269,6 +270,10 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                     slot.substitute.forEach((element) => substituteSet.add(element))
                 }
             }
+            
+            if(this.get("saf")[i].getAt(0).get("slot") != null){
+                safSet.add(this.get("saf")[i].getAt(0).get("slot").code)
+            }
         }
 
         var boostTagGroup = new Map()
@@ -277,8 +282,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         abilityIdMap.forEach(function(value, key){
 
             var ability = Ability_Store.findNode("code", key)
-
-            if(key[0] == '*') return
 
             if(!ability.get('boost')) return
             
@@ -358,20 +361,24 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }
 
         var substitute = Ext.getStore("Substitute_Store")
-        
-        // Basic Transfer
-        abilityIdMap.forEach(function (count, key) {
-            var isSAF = key[0] == '*'
-            var ability = Ability_Store.findNode("code", isSAF ? key.substring(1, key.length) : key)
-            if(ability && isSAF){
+
+        safSet.forEach(function(value1, value2, set){
+            var ability = Ability_Store.findNode("code", value1)
+            if(ability != null){
                 selectionStore.add({
                     data: ability,
-                    factor: isSAF,
+                    factor: true,
                     rate: 100,
                     disable: false,
                     selected: false
                 })
-            } else if(ability.get('rate')){
+            }
+        })
+        
+        // Basic Transfer
+        abilityIdMap.forEach(function (count, key) {
+            var ability = Ability_Store.findNode("code", key)
+            if(ability.get('rate')){
 
                 if(ability.get('require') && !abilityIdMap.has(ability.get('require'))) return
 
@@ -492,14 +499,18 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     updateSelectedOptions: function(newSelect, isNewSelect){
         var result = this.getStore("result")
         var selectionList = this.getStore("selection")
-        result.removeAll()
+        var selectedData = newSelect.get('data')
 
+        result.removeAll()
+        console.log("tag")
         selectionList.each(function(record){
             if(record.get("selected")){
                 var data = record.get('data').data
-                if(isNewSelect && newSelect.get('code') != data.code && newSelect.get('gid') != null && newSelect.get('gid') == data.gid) {
+
+                if(isNewSelect && selectedData.get('code') == data.code && newSelect.get('factor') != record.get('factor')) {
                     record.set("selected", false)
-                    
+                } else if(isNewSelect && selectedData.get('code') != data.code && selectedData.get('gid') != null && selectedData.get('gid') == data.gid) {
+                    record.set("selected", false)
                 } else {
                     result.add({
                         name: data.name, 

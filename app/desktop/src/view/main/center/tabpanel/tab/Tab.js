@@ -24,53 +24,18 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
     closable: true,
     initComponent: function(){
         this.superclass.initComponent.apply(this, arguments);
-        this.initContextMenu();
         this.createTopPanel();
         this.createBottomPanel();  
     },
-    initContextMenu: function(){
-        var buttons = [];
-        buttons.push({
-            iconCls: "x-factor-icon",
-            text: this.factorMenuText.on,
-            scope: this,
-            handler: function(item, event, eOpts) {
-                var cell = this.holdInfo;
-                if (cell) {
-                    if (item.text === this.factorMenuText.on) {
-                        this.getController().makeFactor(cell.tableIndex, cell.rowIndex, true);
-                    } else {
-                        this.getController().makeFactor(cell.tableIndex, cell.rowIndex, false);
-                    }
-                }
-                delete(this.holdInfo)
-            }
-        });
-        buttons.push({
-            iconCls: "x-del-icon",
-            text: "Delete",
-            scope: this,
-            handler: function(item, event, eOpts) {
-                var cell = this.holdInfo;
-                if (cell) {
-                    this.getController().removeAbility(cell.tableIndex, cell.rowIndex);
-                }
-                delete(this.holdInfo)
-            }
-        });
-        this.contextMenu = Ext.create("Ext.menu.Menu", {
-            items: buttons
-        })
-    },
     createGridPanel:function(index, title){
         var controller = this.getController();
-        var fodderPanel = Ext.create("Ext.grid.Panel", {
+        
+        var abilityPanel = Ext.create("Ext.grid.Panel", {
             title: title,
             sortableColumns: false,
             locked: false,
-            collapsed: false,
-            collapsible: true,
             border: true,
+            disableSelection: true,
             cls: 'x-tabgrid',
             header: {
                 padding: 6
@@ -85,9 +50,6 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                 header: "Ability",
                 renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                     if (value != null) {
-                        if (value.factor) {
-                            metaData.tdCls = "x-factor-icon"
-                        }
                         return value.name
                     }
                     return ""
@@ -143,17 +105,20 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     },
                     cellcontextmenu: function( table, td, cellIndex, record, tr, rowIndex, event, eOpts ){
                         event.stopEvent();
-                        this.holdInfo = {
-                            tableIndex: index,
-                            rowIndex: rowIndex
-                        }
                         if(record.get('slot') != null){
-                            if (record.get('slot').factor !== true) {
-                                this.contextMenu.items.getAt(0).setText(this.factorMenuText.on)
-                            } else {
-                                this.contextMenu.items.getAt(0).setText(this.factorMenuText.off)
-                            }
-                            this.contextMenu.showAt(event.getXY())
+                            var menu = Ext.create("Ext.menu.Menu", {
+                                items: [
+                                    {
+                                        iconCls: "x-del-icon",
+                                        text: "Delete",
+                                        scope: this,
+                                        handler: function(item, event, eOpts) {
+                                            this.getController().removeAbility(index, rowIndex);
+                                        }
+                                    }
+                                ]
+                            })
+                            menu.showAt(event.getXY())
                         } else {
                             var menu = Ext.create("Ext.menu.Menu", {
                                 items: [
@@ -161,11 +126,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                                         text: "Fill up to slot " + String(rowIndex + 1),
                                         scope: this,
                                         handler: function(item, event, eOpts) {
-                                            var cell = this.holdInfo;
-                                            if (cell) {
-                                                this.getController().fillJunk(cell.tableIndex, cell.rowIndex);
-                                            }
-                                            delete(this.holdInfo)
+                                            this.getController().fillJunk(index, rowIndex);
                                         }
                                     }
                                 ]
@@ -176,6 +137,99 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                 }
             }
         });
+
+        var safpanel = Ext.create("Ext.grid.Panel", {
+            preventHeader: true,
+            sortableColumns: false,
+            locked: false,
+            border: true,
+            disableSelection: true,
+            cls: 'x-tabgrid',
+            header: {
+                padding: 6
+            },
+            columns: [{
+                dataIndex: "name",
+                width: 52,
+                hidden: true
+            }, {
+                dataIndex: "slot",
+                renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                    metaData.tdCls = "x-factor-icon"
+                    if (value != null) {
+                        return value.name
+                    }
+                    return "None"
+                }
+            }],
+            forceFit: true,
+            bind: {
+                store: "{saf." + index + "}"
+            },
+            viewConfig: {
+                markDirty: false,
+                listeners: {
+                    scope: this,
+                    render: function(el){
+                        el.dragZone = Ext.create("Ext.dd.DragZone", el.getEl(), {
+                            getDragData: function(event) {
+                                var sourceEl = event.getTarget(el.itemSelector, 10),
+                                    clone;
+                                if (sourceEl) {
+                                    if (!el.getRecord(sourceEl).data.slot) {
+                                        return null
+                                    }
+                                    clone = sourceEl.cloneNode(true);
+                                    clone.id = Ext.id();
+                                    return el.dragData = {
+                                        gridId: this.id,
+                                        sourceEl: sourceEl,
+                                        repairXY: Ext.fly(sourceEl).getXY(),
+                                        ddel: clone,
+                                        patientData: el.getRecord(sourceEl).data.slot
+                                    }
+                                }
+                            },
+                            getRepairXY: function() {
+                                return this.dragData.repairXY
+                            }
+                        }),
+                        
+                        el.dropZone = Ext.create("Ext.dd.DropZone", el.getEl(), {
+                            getTargetFromEvent: function(event) {
+                                return event.getTarget(".x-grid-cell-last");
+                            },
+                            onNodeDrop: function(target, dd, event, data) {
+                                controller.addFactor(index, data.patientData);
+                                return true
+                            }
+                        })
+                    },
+                    cellcontextmenu: function( table, td, cellIndex, record, tr, rowIndex, event, eOpts ){
+                        event.stopEvent();
+                        if(record.get('slot') != null){
+                            var menu = Ext.create("Ext.menu.Menu", {
+                                items: [
+                                    {
+                                        iconCls: "x-del-icon",
+                                        text: "Delete Special Ability Factor",
+                                        scope: this,
+                                        handler: function(item, event, eOpts) {
+                                            this.getController().removeFactor(index);
+                                        }
+                                    }
+                                ]
+                            })
+                            menu.showAt(event.getXY())
+                        }
+                    }
+                }
+            }
+        });
+
+        var fodderPanel = Ext.create("Ext.Panel")
+        fodderPanel.add(abilityPanel)
+        fodderPanel.add(safpanel)
 
         return fodderPanel
     },
@@ -295,7 +349,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
                     listeners: {
                         change: function(checkbox, newValue, oldValue, eOpts ){
                             this.record.set("selected", newValue);
-                            controller.updateSelectedOptions(record.get('data'), newValue);
+                            controller.updateSelectedOptions(record, newValue);
                         },
                         render: function(){
                             this.relayEvents(vm.getStore('selection'), ['DisabledCheckbox', 'SetValue'], 'selectionStore')

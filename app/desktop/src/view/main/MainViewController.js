@@ -3,21 +3,21 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
   alias: 'controller.mainviewcontroller',
   requires: ['Ext.ux.Mediator'],
 
-  initViewModel: function(vm) {
+  initViewModel: function (vm) {
   },
-  campaignBoostChangeEvent: function(field, newValue, oldValue, opts){
+  campaignBoostChangeEvent: function (field, newValue, oldValue, opts) {
     Ext.ux.Mediator.fireEvent('campaignChange', newValue);
   },
-  groupTypeBoostChangeEvent: function(field, newValue, oldValue, opts){
+  groupTypeBoostChangeEvent: function (field, newValue, oldValue, opts) {
     Ext.ux.Mediator.fireEvent('groupTypeChange', newValue);
   },
-  groupvalueBoostChangeEvent: function(field, newValue, oldValue, opts){
+  groupvalueBoostChangeEvent: function (field, newValue, oldValue, opts) {
     Ext.ux.Mediator.fireEvent('groupValueChange', newValue);
   },
-  changeBaseColor: function ( field, color, previousColor, eOpts ) {
-    if(previousColor != null){
+  changeBaseColor: function (field, color, previousColor, eOpts) {
+    if (previousColor != null) {
       var storage = Ext.util.LocalStorage.get("affixsim");
-      if(storage){
+      if (storage) {
         storage.setItem("base-color", color)
       }
       Fashion.css.setVariables(
@@ -28,10 +28,10 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
       );
     }
   },
-  changeDarkMode: function (checkbox, newValue, oldValue, eOpts){
+  changeDarkMode: function (checkbox, newValue, oldValue, eOpts) {
     this.getViewModel().set('dark_mode', newValue);
     var storage = Ext.util.LocalStorage.get('affixsim');
-    if(storage){
+    if (storage) {
       storage.setItem("dark-mode", newValue)
     }
     Fashion.css.setVariables(
@@ -40,36 +40,40 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
         "dark-mode": newValue.toString()
       });
   },
-  changeServer: function ( field, newValue, oldValue, eOpts ) {
-    if(oldValue != null){
+  changeServer: function (field, newValue, oldValue, eOpts) {
+    if (oldValue != null) {
       var storage = Ext.util.LocalStorage.get("affixsim");
-      if(storage){
+      if (storage) {
         storage.setItem("server", newValue)
       }
     }
   },
-  changeLanguage: function ( field, newValue, oldValue, eOpts ) {
-    if(oldValue != null){
+  changeLanguage: function (field, newValue, oldValue, eOpts) {
+    if (oldValue != null) {
       var storage = Ext.util.LocalStorage.get("affixsim");
-      if(storage){
+      if (storage) {
         storage.setItem("language", newValue)
       }
     }
   },
-  onAddTabClick: function() {
+  onAddTabClick: function () {
     var tabPanel = this.lookupReference('tabpanel'),
-        tab = tabPanel.add({
-          xtype: "tabview"
-        });
+      tab = tabPanel.add({
+        xtype: "tabview"
+      });
 
     tabPanel.setActiveTab(tab);
   },
-  makeActiveTabValid: function() {
+  makeActiveTabValid: function () {
     var tabPanel = this.lookupReference('tabpanel'),
-        tab = tabPanel.getActiveTab(tab)
-        if(tab != null) tab.makeTabValid()
+      tab = tabPanel.getActiveTab(tab)
+    if (tab != null) tab.makeTabValid()
   },
-
+  renameActiveTab: function () {
+    var tabPanel = this.lookupReference('tabpanel'),
+      tab = tabPanel.getActiveTab(tab)
+    if (tab != null) tab.makeTabValid()
+  },
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();
     vm.set('detailCollapsed', !vm.get('detailCollapsed'));

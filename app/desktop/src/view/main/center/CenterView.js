@@ -18,6 +18,16 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 		{
 			xtype: 'button',
 			icon: null,
+			text: "Rename Tab",
+			iconCls: 'x-fa fa-edit',
+			listeners: {
+				//click: 'makeActiveTabValid'
+			},
+			tooltip: "Rename current tab"
+		},
+		{
+			xtype: 'button',
+			icon: null,
 			text: "Make Active Tab Valid",
 			iconCls: 'x-fa fa-check',
 			listeners: {
@@ -59,11 +69,11 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			listeners: {
 				change: 'campaignBoostChangeEvent'
 			},
-			validator: function(val){
+			validator: function (val) {
 				var value = val;
-				if(value < 0){
-					value =  0
-				} else if(value > 100){
+				if (value < 0) {
+					value = 0
+				} else if (value > 100) {
 					value = 100
 				}
 				this.setValue(value);
@@ -125,11 +135,11 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			listeners: {
 				change: 'groupvalueBoostChangeEvent'
 			},
-			validator: function(val){
+			validator: function (val) {
 				var value = val;
-				if(value < 0){
-					value =  0
-				} else if(value > 100){
+				if (value < 0) {
+					value = 0
+				} else if (value > 100) {
 					value = 100
 				}
 				this.setValue(value);

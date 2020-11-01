@@ -77,6 +77,10 @@
     {
       "path": "app.js",
       "bundle": true
+    },
+    {
+      "path": "resources/lzbase62.min.js",
+      "bundle": true
     }
   ],
 

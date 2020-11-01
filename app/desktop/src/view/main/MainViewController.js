@@ -72,7 +72,13 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
   renameActiveTab: function () {
     var tabPanel = this.lookupReference('tabpanel'),
       tab = tabPanel.getActiveTab(tab)
-    if (tab != null) tab.makeTabValid()
+    if (tab != null){
+      return Ext.Msg.prompt("Rename Panel", "Rename current panel.<br/>Input a name?", function(okButton, textfield) {
+        if (okButton == "ok") {
+            tab.rename(textfield)
+        }
+      })
+    } 
   },
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();

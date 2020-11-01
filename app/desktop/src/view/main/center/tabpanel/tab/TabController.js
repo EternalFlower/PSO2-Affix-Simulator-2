@@ -7,8 +7,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
         Ext.ux.Mediator.on('groupTypeChange', this.changeGroupTypeBoost, this);
         Ext.ux.Mediator.on('groupValueChange', this.changeGroupValueBoost, this);
     },
-    rename: function () {
-        var name = "tttt";
+    rename: function (name) {
         this.getViewModel().renameTab(name);
     },
     addAbility: function(fodder, data){

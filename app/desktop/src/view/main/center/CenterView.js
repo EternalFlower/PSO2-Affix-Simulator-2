@@ -21,7 +21,7 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			text: "Rename Tab",
 			iconCls: 'x-fa fa-edit',
 			listeners: {
-				//click: 'makeActiveTabValid'
+				click: 'renameActiveTab'
 			},
 			tooltip: "Rename current tab"
 		},

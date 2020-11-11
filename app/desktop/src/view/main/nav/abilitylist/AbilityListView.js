@@ -20,14 +20,19 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
         tooltip: 'Expand All',
         scope: this,
         callback: function (panel, tool, event) {
+            Ext.suspendLayouts();
             panel.expandAll();
+            Ext.resumeLayouts(true);
+            
         }
     }, {
         type: 'minus',
         tooltip: 'Collapse All',
         scope: this,
         callback: function (panel, tool, event) {
+            Ext.suspendLayouts();
             panel.collapseAll();
+            Ext.resumeLayouts(true);
         }
     }],
     columns: [{

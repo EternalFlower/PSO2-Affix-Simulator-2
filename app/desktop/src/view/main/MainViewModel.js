@@ -4,8 +4,6 @@ Ext.define('pso2affixsim.view.main.MainViewModel', {
 	data: {
 		name: 'PSO2 Ability Simulator',
 		navCollapsed:       false,
-		navview_max_width:    400,
-		navview_min_width:     44,
 		topview_height:       75,
 		bottomview_height:     50,
 		detailCollapsed:     true,

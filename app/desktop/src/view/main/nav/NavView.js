@@ -10,16 +10,8 @@ Ext.define("pso2affixsim.view.main.nav.NavView", {
 	items: [
 		{
 			xtype: 'abilitylistview',
-			bind: {
-				width: '{menuview_width}'
-			}
+			width: 417
 		}
-	],
-	/*
-	bbar: {
-		xtype: "bottomview",
-		reference: "bottomview",
-		height: 50
-	}*/
+	]
 });
 

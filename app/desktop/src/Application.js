@@ -23,15 +23,15 @@ Ext.define('pso2affixsim.Application', {
 		} else if (server == "2"){
 			abilityStore = 'pso2affixsim.store.GlobalAbility'
 		}
+
 		Ext.create(abilityStore, {storeId: "Ability_Store"});
-		Ext.create('pso2affixsim.store.Synthesis', {storeId: "Synthesis_Store"});
-		Ext.create('pso2affixsim.store.Items', {storeId: "Item_Store"});
-        Ext.create('pso2affixsim.store.BoostItems', {storeId: "BoostItem_Store"});
-		Ext.create('pso2affixsim.store.BoostPotential', {storeId: "BoostPotential_Store"});
-		Ext.create('pso2affixsim.store.AbilityBoost', {storeId: "AbilityBoost_Store"});
-		Ext.create('pso2affixsim.store.UpslotRates', {storeId: "Upslot_Store"});
-		Ext.create('pso2affixsim.store.Substitute', {storeId: "Substitute_Store"});
-		
+		Ext.create('pso2affixsim.store.Synthesis', {storeId: "Synthesis_Store"})
+		Ext.create('pso2affixsim.store.Items', {storeId: "Item_Store"})
+        Ext.create('pso2affixsim.store.BoostItems', {storeId: "BoostItem_Store"})
+		Ext.create('pso2affixsim.store.BoostPotential', {storeId: "BoostPotential_Store"})
+		Ext.create('pso2affixsim.store.AbilityBoost', {storeId: "AbilityBoost_Store"})
+		Ext.create('pso2affixsim.store.UpslotRates', {storeId: "Upslot_Store"})
+		Ext.create('pso2affixsim.store.Substitute', {storeId: "Substitute_Store"});	
 
 		if (Ext.isClassic == true) {
 			Ext.create({xtype: whichView, plugins: 'viewport'})
@@ -45,7 +45,7 @@ Ext.define('pso2affixsim.Application', {
 		Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
 			function (choice) {
 				if (choice === 'yes') {
-					window.location.reload();
+					window.location.reload()
 				}
 			}
 		);

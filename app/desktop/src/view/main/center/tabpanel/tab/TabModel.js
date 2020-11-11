@@ -67,9 +67,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }
     },
     createPanelStore: function () {
-        var constBaseSlot = []
+        var baseAffixStore = []
         for (var count = 1; count <= this.const_MaxSlot; count++) {
-            constBaseSlot.push({
+            baseAffixStore.push({
                 id: "slot" + count,
                 name: "Slot " + count,
                 slot: null
@@ -84,7 +84,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         ]
         var store = Ext.create("Ext.data.Store", {
             model: "PSO2.Slot",
-            data: constBaseSlot,
+            data: baseAffixStore,
             getAbilityCount: function () {
                 var len = this.getCount()
                 var count = 0
@@ -110,8 +110,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             "title": name
         })
     },
-    addAbility: function (fodder, data) {
-        var store = this.get("panels")[fodder]
+    addAbility: function (itemIndex, data) {
+        var store = this.get("panels")[itemIndex]
         var index, slot, slotCount = store.getCount()
         for (index = 0; index < slotCount; index++) {
             slot = store.getAt(index).get("slot")
@@ -248,8 +248,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             for (var j = 0; j < numAbiFodderCount; j++) {
 
                 var slot = fodder.getAt(j).get("slot")
-
-                if (slot == null) break
 
                 if (!abilityIdMap.has(slot.code)) {
                     abilityIdMap.set(slot.code, 1)
@@ -502,7 +500,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var selectedData = newSelect.get('data')
 
         result.removeAll()
-        console.log("tag")
+        console.log("jiot")
         selectionList.each(function (record) {
             if (record.get("selected")) {
                 var data = record.get('data').data
@@ -643,6 +641,47 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
         }, this)
         return totalStats
+    },
+    getTabData: function(){
+        var obj = {
+            affixes: [],
+            saf: [],
+            selection: [],
+            potBoost: 0,
+            itemBoost: 0,
+            item: null
+        }
+        for (var i = 0; i < this.const_MaxFodder; i++) {
+            obj.affixes.push([])
+            var fodder = this.get("panels")[i]
+            var numAbiFodderCount = fodder.getAbilityCount()
+
+            for (var j = 0; j < numAbiFodderCount; j++) {
+                var slot = fodder.getAt(j).get("slot")
+                obj.affixes[i].push(slot.code)
+            }
+            
+            if (this.get("saf")[i].getAt(0).get("slot") != null) {
+                obj.saf[i] = this.get("saf")[i].getAt(0).get("slot").code
+            }
+        }
+
+        var selectionStore = this.getStore("selection")
+
+        selectionStore.each(function(record){
+            if(record.get('selected')){
+                obj.selection.push(record.get('data').get('code'))
+            }
+        })
+
+        obj.potBoost = this.potentialboost
+        obj.itemBoost = this.itemBoost
+
+        if(this.addItem){
+            obj.item = this.addItem.get('code')
+        }
+
+        return obj
     },
     changeItemBoost: function (boost) {
         this.itemBoost = boost

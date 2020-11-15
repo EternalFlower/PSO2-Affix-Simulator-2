@@ -63,7 +63,7 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
       });
 
     tabPanel.setActiveTab(tab);
-    var test = JSON.parse('{"affixes":[["AA01"],["AA03"],[],[],[],[]],"saf":[null,"AA04"],"selection":["AA03"],"potBoost":0,"itemBoost":0,"item":null}')
+    var test = JSON.parse('{"affixes":[["AA01"],["AA03"],[],[],[],[]],"saf":[null,"AA04"],"selection":["AA04"],"potBoost":0,"itemBoost":0,"item":null}')
     tab.loadTabData(test)
   },
   makeActiveTabValid: function () {

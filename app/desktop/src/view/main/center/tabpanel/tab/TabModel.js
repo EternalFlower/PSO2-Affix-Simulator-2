@@ -705,6 +705,16 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.updateSelectionList()
         
         var selection = data.selection
+        var selectionList = this.getStore("selection")
+
+        var that = this
+
+        selectionList.each(function (record) {
+            if(selection.some((element) => element ==  record.get('data').get('code'))){
+                record.set("selected", true)
+                that.updateSelectedOptions(record, true)
+            }
+        })
     },
     changeItemBoost: function (boost) {
         this.itemBoost = boost

@@ -516,10 +516,13 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         });
         this.add(panel);
     },
-    makeTabValid() {
+    makeTabValid: function() {
         this.getController().makeTabValid()
     },
-    rename(name) {
+    rename: function(name) {
         this.getController().rename(name)
+    },
+    loadTabData: function(data){
+        this.getController().loadTabData(data)
     }
 })

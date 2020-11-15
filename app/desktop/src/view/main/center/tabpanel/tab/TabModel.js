@@ -683,6 +683,29 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         return obj
     },
+    loadTabData: function (data) {
+        var Ability_Store = Ext.getStore("Ability_Store")
+        var affixes = data.affixes
+        var saf = data.saf
+
+        for (var i = 0; i < this.const_MaxFodder; i++) {
+            var fodder = this.get("panels")[i]
+
+            for (var j = 0; j < affixes[i].length; j++) {
+                var ability = Ability_Store.findNode("code", affixes[i][j])
+                fodder.getAt(j).set("slot", ability.getData())
+            }
+            
+            if (saf[i] != null) {
+                var ability = Ability_Store.findNode("code", saf[i])
+                this.get("saf")[i].getAt(0).set("slot", ability.getData())
+            }
+        }
+        console.log("load")
+        this.updateSelectionList()
+        
+        var selection = data.selection
+    },
     changeItemBoost: function (boost) {
         this.itemBoost = boost
         this.updateRates()

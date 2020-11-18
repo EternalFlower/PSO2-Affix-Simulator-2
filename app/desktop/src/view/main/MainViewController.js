@@ -63,7 +63,7 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
       });
 
     tabPanel.setActiveTab(tab);
-    var test = JSON.parse('{"affixes":[["AA01"],["AA03"],[],[],[],[]],"saf":[null,"AA04"],"selection":["AA04"],"potBoost":0,"itemBoost":0,"item":null}')
+    var test = JSON.parse('{"affixes":[["AA01"],["AA03"],[],[],[],[]],"saf":[null,"AA04"],"selection":["IT03"],"itemboost":"A04","potential":"C12","additem":"IT03","same":true}')
     tab.loadTabData(test)
   },
   makeActiveTabValid: function () {
@@ -81,6 +81,11 @@ Ext.define('pso2affixsim.view.main.MainViewController', {
         }
       })
     } 
+  },
+  getActiveTabData: function(){
+    var tabPanel = this.lookupReference('tabpanel'),
+    tab = tabPanel.getActiveTab(tab)
+    console.log(tab.getTabData())
   },
   onHeaderViewDetailToggle: function () {
     var vm = this.getViewModel();

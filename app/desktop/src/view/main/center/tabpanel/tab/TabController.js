@@ -61,6 +61,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     makeTabValid: function(){
         this.getViewModel().makeTabValid();
     },
+    getTabData: function(){
+        return this.getViewModel().getTabData()
+    },
     loadTabData: function (data){
         this.getViewModel().loadTabData(data)
     }

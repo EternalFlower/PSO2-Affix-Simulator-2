@@ -1,4 +1,4 @@
-Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
+Ext.define('pso2affixsim.view.main.center.tabpanel.tab.TabView', {
     extend: 'Ext.panel.Panel',
     requires: [
         'pso2affixsim.view.main.tabpanel.tab.TabController',
@@ -272,7 +272,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
         var vm = this.getViewModel()
         var controller = this.getController()
 
-        var itemboost = Ext.create("Ext.form.field.ComboBox", {
+        this.itemboost = Ext.create("Ext.form.field.ComboBox", {
             store: Ext.getStore("BoostItem_Store"),
             padding: "5 5 0 5",
             displayField: "id",
@@ -288,7 +288,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
         })
 
-        var additem = Ext.create("Ext.form.field.ComboBox", {
+        this.additem = Ext.create("Ext.form.field.ComboBox", {
             store: Ext.getStore("Item_Store"),
             padding: "5 5 0 5",
             displayField: "id",
@@ -303,7 +303,7 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
         })
 
-        var potentialboost = Ext.create("Ext.form.field.ComboBox", {
+        this.potentialboost = Ext.create("Ext.form.field.ComboBox", {
             store: Ext.getStore("BoostPotential_Store"),
             padding: "5 5 0 5",
             displayField: "id",
@@ -316,6 +316,19 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             disabled: false,
             listeners: {
                 select: 'changePotentialBoost'
+            }
+        })
+
+        this.sameitem = Ext.create("Ext.form.Checkbox", {
+            labelWidth: 120,
+            padding: "5 5 -5 5",
+            fieldLabel: "Same Item Bonus",
+            labelAlign: 'left',
+            autoEl: {
+                'data-qtip': 'Bonus Multiplier if all items are the same.<br>1.1x for 2 items, 1.15x for 3 or more'
+            },
+            listeners: {
+                change: 'changeSameItemBoost'
             }
         })
 
@@ -393,22 +406,10 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
             }
         }));
 
-        bottomRight.add(itemboost)
-        bottomRight.add(additem)
-        bottomRight.add(potentialboost)
-
-        bottomRight.add(Ext.create("Ext.form.Checkbox", {
-            labelWidth: 120,
-            padding: "5 5 -5 5",
-            fieldLabel: "Same Item Bonus",
-            labelAlign: 'left',
-            autoEl: {
-                'data-qtip': 'Bonus Multiplier if all items are the same.<br>1.1x for 2 items, 1.15x for 3 or more'
-            },
-            listeners: {
-                change: 'changeSameItemBoost'
-            }
-        }))
+        bottomRight.add(this.itemboost)
+        bottomRight.add(this.additem)
+        bottomRight.add(this.potentialboost)
+        bottomRight.add(this.sameitem)
 
         bottomRight.add(Ext.create("Ext.panel.Panel", {
             padding: 5,
@@ -522,7 +523,19 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.Tab', {
     rename: function(name) {
         this.getController().rename(name)
     },
+    getTabData: function(){
+        var data = this.getController().getTabData()
+        data.itemboost = this.itemboost.getValue()
+        data.potential = this.potentialboost.getValue()
+        data.additem = this.additem.getValue()
+        data.same = this.sameitem.getValue()
+        return data
+    },
     loadTabData: function(data){
+        this.itemboost.setValue(data.itemboost)
+        this.potentialboost.setValue(data.potential)
+        this.additem.setValue(data.additem)
+        this.sameitem.setValue(data.same)
         this.getController().loadTabData(data)
     }
 })

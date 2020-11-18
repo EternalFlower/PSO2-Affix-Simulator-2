@@ -205,12 +205,12 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.updateSelectionList()
     },
-    suspendUpdateViewSelectionList: function () {
+    suspendViewSelectionList: function () {
         var selectionStore = this.getStore("selection")
         selectionStore.suspendEvents()
         selectionStore.removeAll()
     },
-    updateViewSelectionList: function () {
+    resumeViewSelectionList: function () {
         var selectionStore = this.getStore("selection")
         selectionStore.resumeEvents()
         selectionStore.fireEvent("SelectionListChanged", this.getStore("selection"))
@@ -225,7 +225,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.getStore("result").removeAll()
 
-        this.suspendUpdateViewSelectionList()
+        this.suspendViewSelectionList()
 
         var minAbilityCount = this.get("panels")[0].getAbilityCount()
 
@@ -234,14 +234,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var substituteSet = new Set()
         var safSet = new Set()
 
-
         for (var i = 0; i < this.const_MaxFodder; i++) {
 
             var fodder = this.get("panels")[i]
             var numAbiFodderCount = fodder.getAbilityCount()
 
             if (numAbiFodderCount != 0 && numAbiFodderCount < minAbilityCount) {
-                this.updateViewSelectionList()
+                this.resumeViewSelectionList()
                 return
             }
 
@@ -335,7 +334,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                         }
                     }
                 })
-
             }
 
             return finalBoost
@@ -359,19 +357,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }
 
         var substitute = Ext.getStore("Substitute_Store")
-
-        safSet.forEach(function (value1, value2, set) {
-            var ability = Ability_Store.findNode("code", value1)
-            if (ability != null) {
-                selectionStore.add({
-                    data: ability,
-                    factor: true,
-                    rate: 100,
-                    disable: false,
-                    selected: false
-                })
-            }
-        })
 
         // Basic Transfer
         abilityIdMap.forEach(function (count, key) {
@@ -400,8 +385,6 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         // Level Up
         abilityIdMap.forEach(function (count, key) {
-            if (key[0] == '*') return
-
             var ability = Ability_Store.findNode("code", key)
 
             if (ability.get('lvlup') && count > 1) {
@@ -483,6 +466,28 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
         })
 
+        safSet.forEach(function (value1, value2, set) {
+            var index = selectionStore.findBy(function (record, id) {
+                return record.get('data').get('code') == value1
+            })
+            if (index > -1) {
+                var found = selectionStore.getAt(index)
+                found.set("rate", 100)
+                found.set("factor", true)      
+            } else {
+                var ability = Ability_Store.findNode("code", value1)
+                if (ability != null) {
+                    selectionStore.add({
+                        data: ability,
+                        factor: true,
+                        rate: 100,
+                        disable: false,
+                        selected: false
+                    })
+                }
+            }
+        })
+
         if (this.addItem) {
             var ability = Ability_Store.findNode("code", this.addItem.get("code"))
             selectionStore.add({
@@ -492,7 +497,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 selected: false
             })
         }
-        this.updateViewSelectionList()
+        this.resumeViewSelectionList()
     },
     updateSelectedOptions: function (newSelect, isNewSelect) {
         var result = this.getStore("result")
@@ -643,26 +648,23 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         return totalStats
     },
     getTabData: function(){
-        var obj = {
+        var data = {
             affixes: [],
             saf: [],
-            selection: [],
-            potBoost: 0,
-            itemBoost: 0,
-            item: null
+            selection: []
         }
         for (var i = 0; i < this.const_MaxFodder; i++) {
-            obj.affixes.push([])
+            data.affixes.push([])
             var fodder = this.get("panels")[i]
             var numAbiFodderCount = fodder.getAbilityCount()
 
             for (var j = 0; j < numAbiFodderCount; j++) {
                 var slot = fodder.getAt(j).get("slot")
-                obj.affixes[i].push(slot.code)
+                data.affixes[i].push(slot.code)
             }
             
             if (this.get("saf")[i].getAt(0).get("slot") != null) {
-                obj.saf[i] = this.get("saf")[i].getAt(0).get("slot").code
+                data.saf[i] = this.get("saf")[i].getAt(0).get("slot").code
             }
         }
 
@@ -670,18 +672,11 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         selectionStore.each(function(record){
             if(record.get('selected')){
-                obj.selection.push(record.get('data').get('code'))
+                data.selection.push(record.get('data').get('code'))
             }
         })
 
-        obj.potBoost = this.potentialboost
-        obj.itemBoost = this.itemBoost
-
-        if(this.addItem){
-            obj.item = this.addItem.get('code')
-        }
-
-        return obj
+        return data
     },
     loadTabData: function (data) {
         var Ability_Store = Ext.getStore("Ability_Store")

@@ -79,7 +79,7 @@
       "bundle": true
     },
     {
-      "path": "resources/lzbase62.min.js",
+      "path": "resources/lz-string.min.js",
       "bundle": true
     }
   ],

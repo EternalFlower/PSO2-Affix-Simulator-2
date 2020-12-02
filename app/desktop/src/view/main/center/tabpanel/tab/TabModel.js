@@ -490,12 +490,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         if (this.addItem) {
             var ability = Ability_Store.findNode("code", this.addItem.get("code"))
-            selectionStore.add({
-                data: ability,
-                rate: this.addItem.get("rate"),
-                disable: false,
-                selected: false
-            })
+            if(ability){
+                selectionStore.add({
+                    data: ability,
+                    rate: this.addItem.get("rate"),
+                    disable: false,
+                    selected: false
+                })
+            }
         }
         this.resumeViewSelectionList()
     },
@@ -649,10 +651,13 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     },
     getTabData: function(){
         var data = {
+            name: null,
             affixes: [],
             saf: [],
             selection: []
         }
+        data.name = this.get('title')
+
         for (var i = 0; i < this.const_MaxFodder; i++) {
             data.affixes.push([])
             var fodder = this.get("panels")[i]
@@ -683,17 +688,29 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var affixes = data.affixes
         var saf = data.saf
 
+        this.setData({
+            "title": data.name
+        })
+
         for (var i = 0; i < this.const_MaxFodder; i++) {
             var fodder = this.get("panels")[i]
+            this.get("panels")[i]
 
-            for (var j = 0; j < affixes[i].length; j++) {
-                var ability = Ability_Store.findNode("code", affixes[i][j])
-                fodder.getAt(j).set("slot", ability.getData())
+            for (var j = 0; j < 8; j++) {
+                if(j < affixes[i].length){
+                    var ability = Ability_Store.findNode("code", affixes[i][j])
+                    fodder.getAt(j).set("slot", ability.getData())
+                } else {
+                    fodder.getAt(j).set("slot", null)
+                }
+                
             }
             
             if (saf[i] != null) {
                 var ability = Ability_Store.findNode("code", saf[i])
                 this.get("saf")[i].getAt(0).set("slot", ability.getData())
+            } else {
+                this.get("saf")[i].getAt(0).set("slot", null)
             }
         }
         console.log("load")

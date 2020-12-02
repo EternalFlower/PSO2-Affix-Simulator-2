@@ -284,7 +284,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.TabView', {
             width: "100%",
             disabled: false,
             listeners: {
-                select: 'changeAffixAidItem'
+                change: function ( comboBox, newValue, oldValue, eOpts ) {
+                    controller.changeAffixAidItem(this.getSelection())
+                }
             }
         })
 
@@ -299,7 +301,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.TabView', {
             anchor: "100%",
             width: "100%",
             listeners: {
-                select: 'controllerChangeAddItem'
+                change: function ( comboBox, newValue, oldValue, eOpts ) {
+                    controller.controllerChangeAddItem(this.getSelection())
+                }
             }
         })
 
@@ -315,7 +319,9 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.TabView', {
             width: "100%",
             disabled: false,
             listeners: {
-                select: 'changePotentialBoost'
+                change: function ( comboBox, newValue, oldValue, eOpts ) {
+                    controller.changePotentialBoost(this.getSelection())
+                }
             }
         })
 
@@ -481,6 +487,120 @@ Ext.define('pso2affixsim.view.main.center.tabpanel.tab.TabView', {
                 }
             }
         }))
+
+        var tab = this
+        bottomRight.add(
+            Ext.create("Ext.panel.Panel", {
+                flex: 1,
+                border: false,
+                autoScroll: true,
+                padding: "0 0 0 0",
+                layout: "column",
+                defaults: {
+                    columnWidth: 1 / 2,
+                    layout: "anchor",
+                    autoHeight: true,
+                    defaults: {
+                        anchor: "100%"
+                    }
+                },
+                items: [
+                    {
+                        xtype: "button",
+                        text: "Get Code",
+                        width: '100%',
+                        listeners: {
+                            scope: this,
+                            click: function (button, event, eOpts) {
+                                var compressed = LZString.compressToEncodedURIComponent(JSON.stringify(this.getTabData()))
+                                Ext.create("widget.window", {
+                                    title: "Code",
+                                    autoDestroy: true,
+                                    closable: true,
+                                    width: 600,
+                                    autoHeight: true,
+                                    modal: true,
+                                    layout: "fit",
+                                    margin: "10 10 10 10",
+                                    bodyStyle: {
+                                        padding: "10px"
+                                    },
+                                    items: Ext.createWidget("panel", {
+                                        html: '<div style="word-wrap: break-word">' + compressed + '</div>'
+                                    })
+                                }).show()
+                            }
+                        }
+                    },
+                    {
+                        xtype: "button",
+                        text: "Load Code",
+                        width: '100%',
+                        listeners: {
+                            scope: this,
+                            click: function (button, event, eOpts) {
+                                var win = Ext.create("widget.window", {
+                                    title: "Code",
+                                    autoDestroy: true,
+                                    closable: true,
+                                    width: 600,
+                                    autoHeight: true,
+                                    modal: true,
+                                    layout: "fit",
+                                    margin: "10 10 10 10",
+                                    bodyStyle: {
+                                        padding: "10px"
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            name: 'code',
+                                            fieldLabel: 'Code:'
+                                        }
+                                    ],
+                                    dockedItems: [{
+                                        xtype: "toolbar",
+                                        ui: "footer",
+                                        dock: "bottom",
+                                        items: [{
+                                            xtype: "label",
+                                            name: "error",
+                                            readOnly: true,
+                                            textAlign: "right",
+                                            html: "&nbsp",
+                                            bodyStyle: {
+                                                "float": "hidden"
+                                            }
+                                        },"->", 
+                                        Ext.create("Ext.button.Button", {
+                                            text: "Load",
+                                            handler: function() {
+                                                var json, code = win.down('textfield[name=code]').getValue().trim()
+                                                try{
+                                                    if (!code) throw "Invalid"
+                                                    json = JSON.parse(LZString.decompressFromEncodedURIComponent(code))
+                                                } catch (e){
+                                                    win.down('label[name=error]').setHtml('<div style="color:red">Invalid code</div>')
+                                                    return
+                                                }
+                                                tab.loadTabData(json)
+                                            },
+                                            minWidth: 64
+                                        }), Ext.create("Ext.button.Button", {
+                                            text: "Close",
+                                            handler: function() {
+                                                win.hide()
+                                            },
+                                            minWidth: 64
+                                        })]
+                                    }]
+                                }).show()
+                            }
+                        }
+                    }
+                ]
+            }
+        ))
 
         var panels = [{
             xtype: "panel",

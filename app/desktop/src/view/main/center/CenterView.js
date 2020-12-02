@@ -40,11 +40,13 @@ Ext.define('pso2affixsim.view.main.center.CenterView', {
 			icon: null,
 			text: "Save",
 			iconCls: 'x-fa fa-save',
+			listeners: {
+				click: 'getActiveTabData'
+			},
 			style: {
 				pointerEvents: 'all'
 			},
-			tooltip: "Not available",
-			disabled: true
+			tooltip: "Not available"
 		},
 		{
 			xtype: 'button',

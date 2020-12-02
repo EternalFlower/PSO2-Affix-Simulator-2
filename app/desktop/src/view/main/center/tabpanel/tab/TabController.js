@@ -31,10 +31,10 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     updateSelectedOptions: function(data, isSelect){
         this.getViewModel().updateSelectedOptions(data, isSelect);
     },
-    controllerChangeAddItem: function ( combo, record, eOpts ) {
+    controllerChangeAddItem: function ( record ) {
         this.getViewModel().changeItemSelected(record);
     },
-    changeAffixAidItem: function ( combo, record, eOpts ) {
+    changeAffixAidItem: function ( record) {
         this.getViewModel().changeItemBoost(record.get("boost"));
     },
     changeCampaignBoost: function(boost){
@@ -46,7 +46,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
     changeGroupValueBoost: function(boost){
         this.getViewModel().changeGroupValueBoost(boost);
     },
-    changePotentialBoost: function ( combo, record, eOpts ){
+    changePotentialBoost: function ( record ){
         this.getViewModel().changePotentialBoost(record.get("boost"));
     },
     changeSameItemBoost: function (checkbox, newValue, oldValue, eOpts){

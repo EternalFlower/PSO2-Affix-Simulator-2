@@ -1956,7 +1956,7 @@
                     ]
                 },
                 {
-                    "name": "Flict, Alter & Stigma",
+                    "name": "Extreme",
                     "children": [{
                             "name": "Flict Arma",
                             "gid": "UA",
@@ -2069,6 +2069,39 @@
                                 "Alter"
                             ],
                             "type": "Tech",
+                            "leaf": true
+                        },
+                        {
+                            "code": "UD01",
+                            "gid": "UA",
+                            "name": "Ligand Arma",
+                            "stats": {
+                                "hp": 30,
+                                "pp": 3,
+                                "satk": 40
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "code": "UD11",
+                            "gid": "UA",
+                            "name": "Ligand Tiro",
+                            "stats": {
+                                "hp": 30,
+                                "pp": 3,
+                                "ratk": 40
+                            },
+                            "leaf": true
+                        },
+                        {
+                            "code": "UD21",
+                            "gid": "UA",
+                            "name": "Ligand Magia",
+                            "stats": {
+                                "hp": 30,
+                                "pp": 3,
+                                "tatk": 40
+                            },
                             "leaf": true
                         },
                         {
@@ -7748,6 +7781,34 @@
                     },
                     "type": "Tech",
                     "leaf": true
+                },
+                {
+                    "code": "TD0G",
+                    "gid": "EB",
+                    "name": "Drago Fever",
+                    "rate": [
+                        100
+                    ],
+                    "stats": {
+                        "dex": 5,
+                        "rdef": 10,
+                        "hp": 5,
+                        "pp": 1
+                    }
+                },
+                {
+                    "code": "TD0H",
+                    "gid": "EB",
+                    "name": "Turkey Fever",
+                    "rate": [
+                        100
+                    ],
+                    "stats": {
+                        "dex": 5,
+                        "tdef": 10,
+                        "hp": 5,
+                        "pp": 1
+                    }
                 },
                 {
                     "name": "ARKS Fever",

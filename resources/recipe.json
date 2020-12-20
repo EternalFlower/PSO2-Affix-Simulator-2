@@ -1,6 +1,4 @@
-
-[
-    {
+[{
         "recipe": [
             "AA01",
             "AB01",
@@ -278,11 +276,31 @@
     },
     {
         "recipe": [
+            "XA16",
+            "(#Reverie)"
+        ],
+        "result": [
+            "$$"
+        ],
+        "success": 100
+    },
+    {
+        "recipe": [
             "XA07",
             "TG31"
         ],
         "result": [
             "TG31"
+        ],
+        "success": 10
+    },
+    {
+        "recipe": [
+            "XA16",
+            "TK10"
+        ],
+        "result": [
+            "TK10"
         ],
         "success": 10
     },

@@ -30,18 +30,15 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
     },
     stores: {
         selection: {
-            sorters: [
-                {
-                    sorterFn: function (record1, record2) {
-                        return record1.get("data").get("code").localeCompare(record2.get("data").get("code"))
-                    },
-                    direction: 'ASC'
-                }
-            ]
+            sorters: [{
+                sorterFn: function(record1, record2) {
+                    return record1.get("data").get("code").localeCompare(record2.get("data").get("code"))
+                },
+                direction: 'ASC'
+            }]
         },
         result: {
-            fields: [
-                {
+            fields: [{
                     name: "name",
                     type: "string"
                 },
@@ -56,17 +53,18 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 {
                     name: "gid",
                     type: "string"
-                }]
+                }
+            ]
         }
     },
-    constructor: function () {
+    constructor: function() {
         this.callParent(arguments)
 
         for (var i = 0; i < this.const_MaxFodder; i++) {
             this.createPanelStore()
         }
     },
-    createPanelStore: function () {
+    createPanelStore: function() {
         var baseAffixStore = []
         for (var count = 1; count <= this.const_MaxSlot; count++) {
             baseAffixStore.push({
@@ -75,17 +73,15 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 slot: null
             })
         }
-        var safStore = [
-            {
-                id: "slot" + count,
-                name: "Slot " + count,
-                slot: null
-            }
-        ]
+        var safStore = [{
+            id: "slot" + count,
+            name: "Slot " + count,
+            slot: null
+        }]
         var store = Ext.create("Ext.data.Store", {
             model: "PSO2.Slot",
             data: baseAffixStore,
-            getAbilityCount: function () {
+            getAbilityCount: function() {
                 var len = this.getCount()
                 var count = 0
                 for (; count < len; count++) {
@@ -93,7 +89,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 }
                 return count
             },
-            isUsed: function () {
+            isUsed: function() {
                 return this.getAbilityCount() != 0
             }
         })
@@ -105,12 +101,12 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.get('panels').push(store)
         this.get('saf').push(saf)
     },
-    renameTab: function (name) {
+    renameTab: function(name) {
         this.setData({
             "title": name
         })
     },
-    addAbility: function (itemIndex, data) {
+    addAbility: function(itemIndex, data) {
         var store = this.get("panels")[itemIndex]
         var index, slot, slotCount = store.getCount()
         for (index = 0; index < slotCount; index++) {
@@ -127,7 +123,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         store.getAt(index).set("slot", data)
         this.updateSelectionList()
     },
-    removeAbility: function (tableIndex, index) {
+    removeAbility: function(tableIndex, index) {
         var store = this.get('panels')[tableIndex]
         var slotCount = store.getAbilityCount()
 
@@ -142,15 +138,15 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.updateSelectionList()
     },
-    addFactor: function (tableIndex, data) {
+    addFactor: function(tableIndex, data) {
         this.get("saf")[tableIndex].getAt(0).set("slot", data)
         this.updateSelectionList()
     },
-    removeFactor: function (tableIndex) {
+    removeFactor: function(tableIndex) {
         this.get("saf")[tableIndex].getAt(0).set("slot", null)
         this.updateSelectionList()
     },
-    fillJunk: function (tableIndex, index) {
+    fillJunk: function(tableIndex, index) {
         var Ability_Store = Ext.getStore("Ability_Store")
         var panel = this.get('panels')[tableIndex]
 
@@ -161,7 +157,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             if (data == null) {
                 for (var j = 1; j <= 8; j++) {
                     var junkCode = "ZA0" + String(filler)
-                    var exist = panel.findBy(function (record) {
+                    var exist = panel.findBy(function(record) {
                         return record.get("slot") != null && record.get("slot").code == junkCode
                     })
                     if (exist == -1) {
@@ -176,7 +172,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.updateSelectionList()
     },
-    makeTabValid: function () {
+    makeTabValid: function() {
         var base = this.get('panels')[0]
         var requireCount = base.getAbilityCount() - 1
         if (requireCount < 0) return
@@ -185,7 +181,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             this.fillJunk(i, requireCount)
         }
     },
-    swapAbility: function (fodder, indexDrag, indexDrop) {
+    swapAbility: function(fodder, indexDrag, indexDrop) {
         var store = this.get("panels")[fodder]
         var slotCount = store.getAbilityCount()
 
@@ -205,18 +201,18 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.updateSelectionList()
     },
-    suspendViewSelectionList: function () {
+    suspendViewSelectionList: function() {
         var selectionStore = this.getStore("selection")
         selectionStore.suspendEvents()
         selectionStore.removeAll()
     },
-    resumeViewSelectionList: function () {
+    resumeViewSelectionList: function() {
         var selectionStore = this.getStore("selection")
         selectionStore.resumeEvents()
         selectionStore.fireEvent("SelectionListChanged", this.getStore("selection"))
         this.maximumAbilitySelectedCheck()
     },
-    updateSelectionList: function () {
+    updateSelectionList: function() {
 
         this.set("totalRate", this.const_emptyText)
 
@@ -276,14 +272,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var boostTagGroup = new Map()
         var boostAbility = new Map()
 
-        abilityIdMap.forEach(function (value, key) {
+        abilityIdMap.forEach(function(value, key) {
 
             var ability = Ability_Store.findNode("code", key)
 
             if (!ability.get('boost')) return
 
             if (ability.get('boost').tag) {
-                ability.get('boost').tag.forEach(function (target) {
+                ability.get('boost').tag.forEach(function(target) {
                     if (!boostTagGroup.has(target)) {
                         boostTagGroup.set(target, new Set())
                     }
@@ -292,7 +288,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
 
             if (ability.get('boost').ability) {
-                ability.get('boost').ability.forEach(function (target) {
+                ability.get('boost').ability.forEach(function(target) {
                     if (!boostAbility.has(target)) {
                         boostAbility.set(target, new Set())
                     }
@@ -303,12 +299,12 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         var abilityBoost = Ext.getStore('AbilityBoost_Store')
 
-        var maxBoostFn = function (ability, rule) {
+        var maxBoostFn = function(ability, rule) {
             var finalBoost = 0
-            boostTagGroup.forEach(function (value_targets, target_tag) {
+            boostTagGroup.forEach(function(value_targets, target_tag) {
                 if (ability.get('tag') && ability.get('tag').includes(target_tag)) {
-                    value_targets.forEach(function (value_target) {
-                        var boostTypeIndex = abilityBoost.findBy(function (record, id) {
+                    value_targets.forEach(function(value_target) {
+                        var boostTypeIndex = abilityBoost.findBy(function(record, id) {
                             return record.get('type') == value_target
                         })
                         if (boostTypeIndex > -1 && abilityBoost.getAt(boostTypeIndex).get(rule) != null) {
@@ -323,8 +319,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
             if (boostAbility.has(ability.get('code'))) {
                 var boost_type = boostAbility.get(ability.get('code'))
-                boost_type.forEach(function (type) {
-                    var boostTypeIndex = abilityBoost.findBy(function (record, id) {
+                boost_type.forEach(function(type) {
+                    var boostTypeIndex = abilityBoost.findBy(function(record, id) {
                         return record.get('type') == type
                     })
                     if (boostTypeIndex > -1 && abilityBoost.getAt(boostTypeIndex).get(rule) != null) {
@@ -339,8 +335,8 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             return finalBoost
         }
 
-        var replaceIfExists = function (ability, rate) {
-            var previousEntry = selectionStore.getAt(selectionStore.findBy(function (record, id) {
+        var replaceIfExists = function(ability, rate) {
+            var previousEntry = selectionStore.getAt(selectionStore.findBy(function(record, id) {
                 return record.get("data").code == ability.get('code')
             }))
 
@@ -359,7 +355,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         var substitute = Ext.getStore("Substitute_Store")
 
         // Basic Transfer
-        abilityIdMap.forEach(function (count, key) {
+        abilityIdMap.forEach(function(count, key) {
             var ability = Ability_Store.findNode("code", key)
             if (ability.get('rate')) {
 
@@ -384,7 +380,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         })
 
         // Level Up
-        abilityIdMap.forEach(function (count, key) {
+        abilityIdMap.forEach(function(count, key) {
             var ability = Ability_Store.findNode("code", key)
 
             if (ability.get('lvlup') && count > 1) {
@@ -396,7 +392,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
                 rate = Math.min(rate + maxBoostFn(ability, 'create'), 100)
 
-                var find = selectionStore.findBy(function (record, id) {
+                var find = selectionStore.findBy(function(record, id) {
                     return record.get("data").code == ability.get('lvlup')
                 })
                 if (find != -1) {
@@ -417,7 +413,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         var synthesisList = Ext.getStore("Synthesis_Store")
 
-        synthesisList.each(function (record) {
+        synthesisList.each(function(record) {
             var materials = record.get("recipe")
             var abilityMapCopy = new Map(abilityIdMap)
 
@@ -466,14 +462,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             }
         })
 
-        safSet.forEach(function (value1, value2, set) {
-            var index = selectionStore.findBy(function (record, id) {
+        safSet.forEach(function(value1, value2, set) {
+            var index = selectionStore.findBy(function(record, id) {
                 return record.get('data').get('code') == value1
             })
             if (index > -1) {
                 var found = selectionStore.getAt(index)
                 found.set("rate", 100)
-                found.set("factor", true)      
+                found.set("factor", true)
             } else {
                 var ability = Ability_Store.findNode("code", value1)
                 if (ability != null) {
@@ -490,7 +486,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         if (this.addItem) {
             var ability = Ability_Store.findNode("code", this.addItem.get("code"))
-            if(ability){
+            if (ability) {
                 selectionStore.add({
                     data: ability,
                     rate: this.addItem.get("rate"),
@@ -501,14 +497,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }
         this.resumeViewSelectionList()
     },
-    updateSelectedOptions: function (newSelect, isNewSelect) {
+    updateSelectedOptions: function(newSelect, isNewSelect) {
         var result = this.getStore("result")
         var selectionList = this.getStore("selection")
         var selectedData = newSelect.get('data')
 
         result.removeAll()
-        console.log("jiot")
-        selectionList.each(function (record) {
+
+        selectionList.each(function(record) {
             if (record.get("selected")) {
                 var data = record.get('data').data
 
@@ -522,6 +518,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                         baserate: record.get("rate"),
                         rate: record.get("rate"),
                         stats: data.stats,
+                        noEx: data.noEx,
                         gid: data.gid
                     })
                 }
@@ -533,9 +530,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         this.maximumAbilitySelectedCheck()
         this.updateRates()
     },
-    maximumAbilitySelectedCheck: function () {
+    maximumAbilitySelectedCheck: function() {
         var maxed = this.get("panels")[0].getAbilityCount() + 1 == this.getStore("result").getCount()
-        this.getStore("selection").each(function (record) {
+        this.getStore("selection").each(function(record) {
             if (!record.get("selected")) {
                 record.set("disable", maxed)
             }
@@ -543,11 +540,11 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         this.getStore("selection").fireEvent("DisabledCheckbox", this.getStore("selection"))
     },
-    changeItemSelected: function (record) {
+    changeItemSelected: function(record) {
         this.addItem = record
         this.updateSelectionList()
     },
-    updateRates: function () {
+    updateRates: function() {
         var abilityList = Ext.getStore("Ability_Store")
         var itemList = Ext.getStore("Item_Store")
         var upslotRates = Ext.getStore("Upslot_Store")
@@ -576,8 +573,14 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             upslotMuliplier = upslotRates.getAt(this.get("panels")[0].getAbilityCount()).get(materialUsed >= 2)
         }
 
+        var guidanceTrainerIndex = this.get("panels")[0].findBy(function(record) {
+            return record.get("slot") != null && record.get("slot").code == "VO01"
+        })
+
+        var guidanceTrainerMod = guidanceTrainerIndex >= 0 ? 5 : 0
+
         var totalRate = 100
-        this.getStore("result").each(function (record) {
+        this.getStore("result").each(function(record) {
             var rate = record.get("baserate")
 
             rate = Math.floor(rate * sameItemMultiplier)
@@ -594,7 +597,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 rate = rate + this.groupBoost.boost
             }
 
-            rate = Math.floor(rate + this.itemBoost + this.potentialboost + this.campaignBoost)
+            rate = Math.floor(rate + this.itemBoost + this.potentialboost + this.campaignBoost) + guidanceTrainerMod
 
             rate = Math.min(100, rate)
             record.set("rate", rate)
@@ -604,9 +607,9 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         if (this.getStore("result").getCount() == 0) this.set("totalRate", this.const_emptyText)
         else this.set("totalRate", totalRate / Math.pow(100, this.getStore("result").getCount()) + "%")
     },
-    getResultStats: function () {
+    getResultStats: function() {
         var totalStats = {}
-        this.getStore("result").each(function (record) {
+        this.getStore("result").each(function(record) {
             var stats = record.get("stats")
             var all = ["satk", "ratk", "tatk", "sdef", "rdef", "tdef"]
             var all_res = ["s_res", "r_res", "t_res", "fire_res", "ice_res", "ltn_res", "wind_res", "light_res", "dark_res"]
@@ -649,7 +652,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }, this)
         return totalStats
     },
-    getTabData: function(){
+    getTabData: function() {
         var data = {
             name: null,
             affixes: [],
@@ -667,7 +670,7 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
                 var slot = fodder.getAt(j).get("slot")
                 data.affixes[i].push(slot.code)
             }
-            
+
             if (this.get("saf")[i].getAt(0).get("slot") != null) {
                 data.saf[i] = this.get("saf")[i].getAt(0).get("slot").code
             }
@@ -675,15 +678,15 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
 
         var selectionStore = this.getStore("selection")
 
-        selectionStore.each(function(record){
-            if(record.get('selected')){
+        selectionStore.each(function(record) {
+            if (record.get('selected')) {
                 data.selection.push(record.get('data').get('code'))
             }
         })
 
         return data
     },
-    loadTabData: function (data) {
+    loadTabData: function(data) {
         var Ability_Store = Ext.getStore("Ability_Store")
         var affixes = data.affixes
         var saf = data.saf
@@ -697,15 +700,15 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
             this.get("panels")[i]
 
             for (var j = 0; j < 8; j++) {
-                if(j < affixes[i].length){
+                if (j < affixes[i].length) {
                     var ability = Ability_Store.findNode("code", affixes[i][j])
                     fodder.getAt(j).set("slot", ability.getData())
                 } else {
                     fodder.getAt(j).set("slot", null)
                 }
-                
+
             }
-            
+
             if (saf[i] != null) {
                 var ability = Ability_Store.findNode("code", saf[i])
                 this.get("saf")[i].getAt(0).set("slot", ability.getData())
@@ -715,40 +718,40 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabModel', {
         }
         console.log("load")
         this.updateSelectionList()
-        
+
         var selection = data.selection
         var selectionList = this.getStore("selection")
 
         var that = this
 
-        selectionList.each(function (record) {
-            if(selection.some((element) => element ==  record.get('data').get('code'))){
+        selectionList.each(function(record) {
+            if (selection.some((element) => element == record.get('data').get('code'))) {
                 record.set("selected", true)
                 that.updateSelectedOptions(record, true)
             }
         })
     },
-    changeItemBoost: function (boost) {
+    changeItemBoost: function(boost) {
         this.itemBoost = boost
         this.updateRates()
     },
-    changeCampaignBoost: function (boost) {
+    changeCampaignBoost: function(boost) {
         this.campaignBoost = boost
         this.updateRates()
     },
-    changeGroupTypeBoost: function (group) {
+    changeGroupTypeBoost: function(group) {
         this.groupBoost.type = group
         this.updateRates()
     },
-    changeGroupValueBoost: function (boost) {
+    changeGroupValueBoost: function(boost) {
         this.groupBoost.boost = boost
         this.updateRates()
     },
-    changePotentialBoost: function (boost) {
+    changePotentialBoost: function(boost) {
         this.potentialboost = boost
         this.updateRates()
     },
-    changeSameItemBonus: function (value) {
+    changeSameItemBonus: function(value) {
         this.sameItemBonus = value
         this.updateRates()
     }

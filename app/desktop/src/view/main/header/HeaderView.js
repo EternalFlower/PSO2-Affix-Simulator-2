@@ -1,24 +1,23 @@
 Ext.define('pso2affixsim.view.main.header.HeaderView', {
-  extend: 'Ext.toolbar.Toolbar',
-  height: 50,
-  xtype: 'headerview',
-  cls: 'headerview',
-  defaults: {
-    ui:'toolbutton-toolbar', 
-    handler:'onToolButtonClicked'
-  },
-  items: [
-    {
-      xtype: 'component',
-      bind: {html: '{name}'},
+    extend: 'Ext.toolbar.Toolbar',
+    height: 50,
+    xtype: 'headerview',
+    cls: 'headerview',
+    defaults: {
+        ui: 'toolbutton-toolbar',
+        handler: 'onToolButtonClicked'
     },
-    '->',
-    '->',
-    {
-      reference: 'detailtoggle',
-      iconCls:'x-fa fa-cog',
-      tooltip: 'Settings',
-      handler: 'onHeaderViewDetailToggle'
-    }
-  ]
+    items: [{
+            xtype: 'component',
+            bind: { html: '{name}' },
+        },
+        '->',
+        '->',
+        {
+            reference: 'detailtoggle',
+            iconCls: 'x-fa fa-cog',
+            tooltip: 'Settings',
+            handler: 'onHeaderViewDetailToggle'
+        }
+    ]
 });

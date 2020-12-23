@@ -1,4 +1,3 @@
-
 Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
     extend: 'Ext.tree.Panel',
     xtype: "abilitylistview",
@@ -19,17 +18,17 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
         type: 'plus',
         tooltip: 'Expand All',
         scope: this,
-        callback: function (panel, tool, event) {
+        callback: function(panel, tool, event) {
             Ext.suspendLayouts();
             panel.expandAll();
             Ext.resumeLayouts(true);
-            
+
         }
     }, {
         type: 'minus',
         tooltip: 'Collapse All',
         scope: this,
-        callback: function (panel, tool, event) {
+        callback: function(panel, tool, event) {
             Ext.suspendLayouts();
             panel.collapseAll();
             Ext.resumeLayouts(true);
@@ -47,9 +46,9 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
     }],
     viewConfig: {
         listeners: {
-            render: function (treeview) {
+            render: function(treeview) {
                 treeview.dragZone = Ext.create("Ext.dd.DragZone", treeview.getEl(), {
-                    getDragData: function (event) {
+                    getDragData: function(event) {
                         var targetItem = event.getTarget(treeview.itemSelector, 10),
                             clone;
                         if (targetItem) {
@@ -64,16 +63,16 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                             }
                         }
                     },
-                    getRepairXY: function () {
+                    getRepairXY: function() {
                         return this.dragData.repairXY
                     }
                 })
-                treeview.dragZone.onBeforeDrag = function (data, e) {
+                treeview.dragZone.onBeforeDrag = function(data, e) {
                     var rec = treeview.getRecord(e.getTarget(treeview.itemSelector));
                     return rec.isLeaf();
                 };
             },
-            itemclick: function (view, node) {
+            itemclick: function(view, node) {
                 if (node.isLeaf()) {
 
                 } else if (node.isExpanded()) {
@@ -94,8 +93,7 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                 type: 'hbox',
                 align: 'stretch'
             },
-            items: [
-                {
+            items: [{
                     'xtype': 'combobox',
                     store: Ext.create('Ext.data.Store', {
                         fields: ["T", "V"],
@@ -115,7 +113,7 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                     value: 'name',
                     width: 150,
                     listeners: {
-                        change: function (combobox, newValue, prevValue) {
+                        change: function(combobox, newValue, prevValue) {
                             panel.filterSetting = newValue;
                             panel.store.clearFilter();
                             var filterValue = panel.filterValue;
@@ -132,7 +130,7 @@ Ext.define('pso2affixsim.view.main.nav.abilitylist.AbilityList', {
                     name: 'filter',
                     flex: 1,
                     listeners: {
-                        change: function (fld, newValue, oldValue, opts) {
+                        change: function(fld, newValue, oldValue, opts) {
                             panel.store.clearFilter();
                             panel.filterValue = newValue;
                             if (newValue.length != 0) {

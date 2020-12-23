@@ -7,64 +7,64 @@ Ext.define('pso2affixsim.view.main.tabpanel.tab.TabController', {
         Ext.ux.Mediator.on('groupTypeChange', this.changeGroupTypeBoost, this);
         Ext.ux.Mediator.on('groupValueChange', this.changeGroupValueBoost, this);
     },
-    rename: function (name) {
+    rename: function(name) {
         this.getViewModel().renameTab(name);
     },
-    addAbility: function(fodder, data){
+    addAbility: function(fodder, data) {
         this.getViewModel().addAbility(fodder, data);
     },
-    removeAbility: function(tableIndex, rowIndex){
+    removeAbility: function(tableIndex, rowIndex) {
         this.getViewModel().removeAbility(tableIndex, rowIndex);
     },
-    addFactor: function(fodder, data){
+    addFactor: function(fodder, data) {
         this.getViewModel().addFactor(fodder, data);
     },
-    removeFactor: function(tableIndex){
+    removeFactor: function(tableIndex) {
         this.getViewModel().removeFactor(tableIndex);
     },
-    swapAbility: function(fodder, indexDrag, indexDrop){
+    swapAbility: function(fodder, indexDrag, indexDrop) {
         this.getViewModel().swapAbility(fodder, indexDrag, indexDrop);
     },
-    updateSelectionList: function(){
+    updateSelectionList: function() {
         this.getViewModel().updateSelectionList();
     },
-    updateSelectedOptions: function(data, isSelect){
+    updateSelectedOptions: function(data, isSelect) {
         this.getViewModel().updateSelectedOptions(data, isSelect);
     },
-    controllerChangeAddItem: function ( record ) {
+    controllerChangeAddItem: function(record) {
         this.getViewModel().changeItemSelected(record);
     },
-    changeAffixAidItem: function ( record) {
+    changeAffixAidItem: function(record) {
         this.getViewModel().changeItemBoost(record.get("boost"));
     },
-    changeCampaignBoost: function(boost){
+    changeCampaignBoost: function(boost) {
         this.getViewModel().changeCampaignBoost(boost);
     },
-    changeGroupTypeBoost: function(group){
+    changeGroupTypeBoost: function(group) {
         this.getViewModel().changeGroupTypeBoost(group);
     },
-    changeGroupValueBoost: function(boost){
+    changeGroupValueBoost: function(boost) {
         this.getViewModel().changeGroupValueBoost(boost);
     },
-    changePotentialBoost: function ( record ){
+    changePotentialBoost: function(record) {
         this.getViewModel().changePotentialBoost(record.get("boost"));
     },
-    changeSameItemBoost: function (checkbox, newValue, oldValue, eOpts){
+    changeSameItemBoost: function(checkbox, newValue, oldValue, eOpts) {
         this.getViewModel().changeSameItemBonus(newValue);
     },
-    getStats: function () {
+    getStats: function() {
         return this.getViewModel().getResultStats();
     },
-    fillJunk: function(tableIndex, rowIndex){
+    fillJunk: function(tableIndex, rowIndex) {
         this.getViewModel().fillJunk(tableIndex, rowIndex);
     },
-    makeTabValid: function(){
+    makeTabValid: function() {
         this.getViewModel().makeTabValid();
     },
-    getTabData: function(){
+    getTabData: function() {
         return this.getViewModel().getTabData()
     },
-    loadTabData: function (data){
+    loadTabData: function(data) {
         this.getViewModel().loadTabData(data)
     }
 });
